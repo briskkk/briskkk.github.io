@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="OS,">
+  <meta name="keywords" content="Python,C++,">
 
 
 
@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="C与操作系统 构建操作系统，每个.c被C编译器编译成一个目标文件，目标文件使用后缀.o，含有目标机器的二进制代码，可以在CPU上运行。 操作系统非常当，每当文件修改后就重新编译是不能忍受的。没有一定的协助，要想记录哪个目标文件在与哪个头文件相关是完全不行的。 处理事务分类–make程序（gmake,pmake..),读入makefile,该makefile说明哪个文件与哪个文件相关。 make作用">
-<meta name="keywords" content="OS">
+<meta name="description" content="在复习数据结构时，使用基数排序处理电话号码排序等问题，会遇到字符之间偏移计算（将字符串转换为字符，再计算字符之间偏移），这样就能够利用向量的下标来对应字符串的位置，存储对应字符。在C语言中允许两个字符使用‘-’运算符，但是python不支持这个操作。python的ord()函数参数是一个字符，返回值是该字符对应的ascii码。 因此我们可以通过该方法来实现两个字符之间的减法运算。 12ord(&apos;a">
+<meta name="keywords" content="Python,C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作系统读书笔记">
-<meta property="og:url" content="http://yoursite.com/2019/01/04/操作系统读书笔记/index.html">
+<meta property="og:title" content="python实现两字符减的运算及基数排序">
+<meta property="og:url" content="http://yoursite.com/2019/01/19/python实现两字符减的运算/index.html">
 <meta property="og:site_name" content="华彦裴的博客">
-<meta property="og:description" content="C与操作系统 构建操作系统，每个.c被C编译器编译成一个目标文件，目标文件使用后缀.o，含有目标机器的二进制代码，可以在CPU上运行。 操作系统非常当，每当文件修改后就重新编译是不能忍受的。没有一定的协助，要想记录哪个目标文件在与哪个头文件相关是完全不行的。 处理事务分类–make程序（gmake,pmake..),读入makefile,该makefile说明哪个文件与哪个文件相关。 make作用">
+<meta property="og:description" content="在复习数据结构时，使用基数排序处理电话号码排序等问题，会遇到字符之间偏移计算（将字符串转换为字符，再计算字符之间偏移），这样就能够利用向量的下标来对应字符串的位置，存储对应字符。在C语言中允许两个字符使用‘-’运算符，但是python不支持这个操作。python的ord()函数参数是一个字符，返回值是该字符对应的ascii码。 因此我们可以通过该方法来实现两个字符之间的减法运算。 12ord(&apos;a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fyurj15hcej30i70l577q.jpg">
-<meta property="og:updated_time" content="2019-01-09T16:53:38.608Z">
+<meta property="og:updated_time" content="2019-01-19T15:25:42.941Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="操作系统读书笔记">
-<meta name="twitter:description" content="C与操作系统 构建操作系统，每个.c被C编译器编译成一个目标文件，目标文件使用后缀.o，含有目标机器的二进制代码，可以在CPU上运行。 操作系统非常当，每当文件修改后就重新编译是不能忍受的。没有一定的协助，要想记录哪个目标文件在与哪个头文件相关是完全不行的。 处理事务分类–make程序（gmake,pmake..),读入makefile,该makefile说明哪个文件与哪个文件相关。 make作用">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fyurj15hcej30i70l577q.jpg">
+<meta name="twitter:title" content="python实现两字符减的运算及基数排序">
+<meta name="twitter:description" content="在复习数据结构时，使用基数排序处理电话号码排序等问题，会遇到字符之间偏移计算（将字符串转换为字符，再计算字符之间偏移），这样就能够利用向量的下标来对应字符串的位置，存储对应字符。在C语言中允许两个字符使用‘-’运算符，但是python不支持这个操作。python的ord()函数参数是一个字符，返回值是该字符对应的ascii码。 因此我们可以通过该方法来实现两个字符之间的减法运算。 12ord(&apos;a">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/04/操作系统读书笔记/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/19/python实现两字符减的运算/">
 
 
 
 
 
-  <title>操作系统读书笔记 | 华彦裴的博客</title>
+  <title>python实现两字符减的运算及基数排序 | 华彦裴的博客</title>
   
 
 
@@ -265,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/操作系统读书笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/19/python实现两字符减的运算/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Briskk">
@@ -282,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">操作系统读书笔记</h1>
+          <h1 class="post-title" itemprop="name headline">python实现两字符减的运算及基数排序</h1>
         
 
         <div class="post-meta">
@@ -294,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T17:32:01+08:00">
-                2019-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-19T21:45:40+08:00">
+                2019-01-19
               </time>
             
 
@@ -317,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
                   </a>
                 </span>
 
@@ -359,54 +357,16 @@
       
 
       
-        <h2 id="C与操作系统"><a href="#C与操作系统" class="headerlink" title="C与操作系统"></a>C与操作系统</h2><ul>
-<li>构建操作系统，每个.c被C编译器编译成一个目标文件，目标文件使用后缀.o，含有目标机器的二进制代码，可以在CPU上运行。</li>
-<li>操作系统非常当，每当文件修改后就重新编译是不能忍受的。没有一定的协助，要想记录哪个目标文件在与哪个头文件相关是完全不行的。</li>
-<li>处理事务分类–make程序（gmake,pmake..),读入makefile,该makefile说明哪个文件与哪个文件相关。</li>
-<li>make作用：在构建操作系统二进制码时，检查此刻需要哪个目标文件，而且对于每个文件，检查自从上次目标文件创建之后，是否有它依赖（代码和头文件）的文件已经需要被修改了。</li>
-<li>所有的.o文件都已经就绪，这些文件被传递给linker程序，将其组合成一个单个可执行的二进制文件。在UNIX中传统上称为a.out文件。<br><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fyurj15hcej30i70l577q.jpg" alt=""></li>
-</ul>
-<hr>
-<h2 id="第一章总结"><a href="#第一章总结" class="headerlink" title="第一章总结"></a>第一章总结</h2><ul>
-<li><p>操作系统两个观点：资源管理，扩展的机器</p>
-<ul>
-<li>资源管理：有效管理系统的各个部分</li>
-<li>扩展的机器：为用户提供比实际机器更便于运用的抽象（进程，地址空间以及文件）</li>
-</ul>
-</li>
-<li><p>所有操作系统构建所依赖的基本概念：进程，存储管理，I/O管理，文件管理和安全</p>
-</li>
-<li>任何操作系统的核心是它可处理的系统调用集。(单体系统，层次化系统，微内核系统，客户机-服务器系统，虚拟机系统和外核系统）<blockquote>
-<p>系统中断，一般是硬件中断和软件中断的综合，“中断”是一个计算机术语，意思跟我们的请求差不多，鼠标、键盘、板卡或者是一些系统内核组件，要想为你服务，都要向系统提出申请，然后等待操作系统的分配。如果没有这个过程，你什么也干不了。CPU占用高的原因就是，系统要保持“随时”能为你提供服务，就必须保证它的优先权力<br>所谓<strong>中断是指CPU对系统发生的某个事件做出的一种反应，CPU暂停正在执行的程序，保留现场后自动地转去执行相应的处理程序，处理完该事件后再返回断点继续执行被“打断”的程序</strong>。<br>中断可分为三类，第一类是由CPU外部引起的，称作中断，如I/O中断、时钟中断、控制台中断等。第二类是来自CPU的内部事件或程序执行中的事件引起的过程，称作异常，如由于CPU本身故障（电源电压低于105V或频率在47～63Hz之外）、程序故障（非法操作码、地址越界、浮点溢出等）等引起的过程。<br>第三类由于在程序中使用了请求系统服务的系统调用而引发的过程，称作“陷入”(trap,或者陷阱)。前两类通常都称作中断，它们的产生往往是无意、被动的，而陷入是有意和主动的。</p>
-</blockquote>
-</li>
-<li>什么是陷阱指令？<blockquote>
-<p>陷阱指令将一个处理器的执行模式从用户模式到内核模式，该指令允许用户程序调用操作系统内核中的函数。</p>
-</blockquote>
-</li>
-<li>陷阱和中断的主要差别是什么？<blockquote>
-<p>陷阱由程序造成的，并且与它同补，如果程序一直被再运行，陷阱将总在指令流中相同的位置的精确发生，而中断则是由外部事件和其时钟造成的，不具有重复性。</p>
-</blockquote>
-</li>
-<li>进程表是为<strong>存储当前被挂起。或者被延迟和阻塞的进程状态</strong>（分时系统），在单一进程的系统中是不需要的，因为单一进程从不挂起。</li>
-<li>系统调用的目的？<blockquote>
-<p>系统调用允许用户在内核中访问和执行操作系统功能，用户程序使用系统调用操作系服务。</p>
-</blockquote>
-</li>
-<li>fork系统调用<blockquote>
-<p>fork函数将运行着的程序分成2个（几乎）完全一样的进程，每个进程都启动一个从代码的同一位置开始执行的线程。这两个进程中的线程继续执行，就像是两个用户同时启动了该应用程序的两个副本。</p>
+        <p>在复习数据结构时，使用基数排序处理电话号码排序等问题，会遇到字符之间偏移计算（将字符串转换为字符，再计算字符之间偏移），这样就能够利用向量的下标来对应字符串的位置，存储对应字符。<br>在C语言中允许两个字符使用‘-’运算符，但是python不支持这个操作。<br>python的ord()函数参数是一个字符，返回值是该字符对应的ascii码。</p>
+<p>因此我们可以通过该方法来实现两个字符之间的减法运算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ord(<span class="string">'a'</span>) - ord(<span class="string">'b'</span>)</span><br><span class="line"><span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>下面进行电话号码排序<br>关于基数排序，要确定排序序列的长度L以及基数大小B，电话号码为11位，所以L=11，数字总共有10位，所以B=10.<br>定义一个包含B个空list的list Q，每个空向量负责放电话号码的各个数字，通过字符相减来确定每个数字所对应的位置。<br>当将每个phone的每个数字都append到了Q中各list中，完成入队。<br>出队，就是将Q中各list依次pop，并替换phone。<br><strong>注意：当尝试修改string的值（导致“TypeError: ‘str’ object does not support item assignment”），所以我们必须对list进行分片来实现替换</strong><br>但是在C中可以直接进行替换</p>
 <blockquote>
-<p>一个现有进程可以调用fork函数创建一个新进程。由fork创建的新进程被称为子进程（child process）。fork函数被调用一次但返回两次。两次返回的唯一区别是子进程中返回0值而父进程中返回子进程ID。</p>
+<p>string是一种不可变的数据类型</p>
 </blockquote>
-</blockquote>
-</li>
-<li>系统调用实际上没有名称，除了在文件中这样描述之外。库例程read陷入内核，将系统调用号码放入寄存器或者堆栈中。<strong>库例程的名称非常重要</strong>，因为它将用于程序中。</li>
-<li>有无必要让程序员了解哪一个库过程调用导致了系统调用？在什么情形下？<blockquote>
-<p>在需要考虑性能的情况下，所有的系统调用都会导致用户环境和内核环境的切换开销，在多用户系统中，在系统调用完成之前，操作系统可能调度到其他的进程，使得调用过程的处理更加迟缓。‘</p>
-</blockquote>
-</li>
-</ul>
-
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">phone = <span class="string">'18629142646'</span></span><br><span class="line">d = <span class="number">11</span></span><br><span class="line">Q = [[] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)] //定义包含<span class="number">10</span>个空list的一个list</span><br><span class="line">// 入队</span><br><span class="line"><span class="keyword">while</span> d &gt; <span class="number">0</span>:</span><br><span class="line">    d -= <span class="number">1</span></span><br><span class="line">    Q[ord(phone[d]) - ord(<span class="string">'0'</span>)].append(phone[d])</span><br><span class="line">//出队</span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">while</span> Q[j]:</span><br><span class="line">        phone = phone[:i] + Q[j].pop() + phone[i+<span class="number">1</span>:]</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">phone</span><br><span class="line"><span class="string">'11224466689'</span></span><br></pre></td></tr></table></figure>
+<p>附电话号码基数排序C++代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">size_t</span> L = <span class="number">9</span>;   <span class="comment">// 字符串长度.</span></span><br><span class="line">  <span class="keyword">size_t</span> B = <span class="number">10</span>;  <span class="comment">// 基数.</span></span><br><span class="line">  <span class="comment">// 如果是特别长的字符串, 可以考虑用链表存储原始数据, 后续队列也用链表实现.</span></span><br><span class="line">  <span class="comment">// 不要用字符串向量再配上字符串指针向量来变动操作, 那样效果不好.</span></span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; phone_numbers(<span class="number">10000000</span>, <span class="string">"123456789"</span>);</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt;&gt; Q(B);</span><br><span class="line">  <span class="comment">// d从L - 1到0, 注意用法.</span></span><br><span class="line">  <span class="keyword">size_t</span> d = L;</span><br><span class="line">  <span class="keyword">while</span> (d &gt; <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    --d;</span><br><span class="line">    <span class="comment">// 根据第d位的数字处理字符串.</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; x : phone_numbers)</span><br><span class="line">      Q[x[d] - <span class="string">'0'</span>].push(x);</span><br><span class="line">    <span class="keyword">size_t</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> k = <span class="number">0</span>; k &lt; B; ++k)</span><br><span class="line">      <span class="keyword">while</span> (!Q[k].empty())</span><br><span class="line">      &#123;</span><br><span class="line">        phone_numbers[i++] = Q[k].front();</span><br><span class="line">        Q[k].pop();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -423,7 +383,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/OS/" rel="tag"># OS</a>
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
           
         </div>
       
@@ -436,8 +398,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/05/转战Ubuntu后续/" rel="next" title="转战Ubuntu后续">
-                <i class="fa fa-chevron-left"></i> 转战Ubuntu后续
+              <a href="/2019/01/15/OpenStack-Tacker使用记录/" rel="next" title="OpenStack Tacker使用记录">
+                <i class="fa fa-chevron-left"></i> OpenStack Tacker使用记录
               </a>
             
           </div>
@@ -445,10 +407,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/10/科学上网使用方法/" rel="prev" title="科学上网使用方法">
-                科学上网使用方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,17 +458,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -594,22 +543,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C与操作系统"><span class="nav-number">1.</span> <span class="nav-text">C与操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章总结"><span class="nav-number">2.</span> <span class="nav-text">第一章总结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
