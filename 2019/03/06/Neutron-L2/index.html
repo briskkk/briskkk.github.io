@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Ubuntu,">
+  <meta name="keywords" content="Neutron,">
 
 
 
@@ -79,23 +79,20 @@
 
 
 
-<meta name="description" content="今天从Win10转用Ubuntu，提前考虑了一下，除了不能使用微信客户端和为知笔记客户端,哦，还有Itunes，没有其他对于Win10强烈需求。Linux之间交互更便利些，逐渐习惯吧，反正之前也是一直使用Xshell的，现在可以摆脱Xshell学生版四栏的限制了～关于Ubuntu安装教程见链接 简单总结一下安装完Ubuntu16.04LTS之后遇到的问题： 中文输入法 安装汉语语言包  1sudo">
-<meta name="keywords" content="Ubuntu">
+<meta name="description" content="Neutron L2网络二层资源的控制面处理和数据面流表设计 资源控制面处理ML2 Plugin管理L2  plugin分为core和service，core plugin提供核心网络资源管理（network，subnet，port）   ML2， Modular Layer 2,可同时管理多种Layer2技术的框架（OVS，LinuxBridge，Sr-IOV），可在不同节点部署linux br">
+<meta name="keywords" content="Neutron">
 <meta property="og:type" content="article">
-<meta property="og:title" content="转战Ubuntu后续">
-<meta property="og:url" content="http://yoursite.com/2018/12/05/转战Ubuntu后续/index.html">
+<meta property="og:title" content="Neutron_L2">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/Neutron-L2/index.html">
 <meta property="og:site_name" content="华彦裴的博客">
-<meta property="og:description" content="今天从Win10转用Ubuntu，提前考虑了一下，除了不能使用微信客户端和为知笔记客户端,哦，还有Itunes，没有其他对于Win10强烈需求。Linux之间交互更便利些，逐渐习惯吧，反正之前也是一直使用Xshell的，现在可以摆脱Xshell学生版四栏的限制了～关于Ubuntu安装教程见链接 简单总结一下安装完Ubuntu16.04LTS之后遇到的问题： 中文输入法 安装汉语语言包  1sudo">
+<meta property="og:description" content="Neutron L2网络二层资源的控制面处理和数据面流表设计 资源控制面处理ML2 Plugin管理L2  plugin分为core和service，core plugin提供核心网络资源管理（network，subnet，port）   ML2， Modular Layer 2,可同时管理多种Layer2技术的框架（OVS，LinuxBridge，Sr-IOV），可在不同节点部署linux br">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fxw6bqj8m8j30ek0d0aaz.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fxw6tl327sj30o30cwdgf.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwly1fxw786entoj3095032aa2.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fxw7ecinjyj32hg0nwqt5.jpg">
-<meta property="og:updated_time" content="2018-12-05T13:49:23.980Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/Neutron-L2/Users/huayanpei/huablog/source/_posts/Neutron-L2/1.png">
+<meta property="og:updated_time" content="2019-03-07T16:01:03.333Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="转战Ubuntu后续">
-<meta name="twitter:description" content="今天从Win10转用Ubuntu，提前考虑了一下，除了不能使用微信客户端和为知笔记客户端,哦，还有Itunes，没有其他对于Win10强烈需求。Linux之间交互更便利些，逐渐习惯吧，反正之前也是一直使用Xshell的，现在可以摆脱Xshell学生版四栏的限制了～关于Ubuntu安装教程见链接 简单总结一下安装完Ubuntu16.04LTS之后遇到的问题： 中文输入法 安装汉语语言包  1sudo">
-<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fxw6bqj8m8j30ek0d0aaz.jpg">
+<meta name="twitter:title" content="Neutron_L2">
+<meta name="twitter:description" content="Neutron L2网络二层资源的控制面处理和数据面流表设计 资源控制面处理ML2 Plugin管理L2  plugin分为core和service，core plugin提供核心网络资源管理（network，subnet，port）   ML2， Modular Layer 2,可同时管理多种Layer2技术的框架（OVS，LinuxBridge，Sr-IOV），可在不同节点部署linux br">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/06/Neutron-L2/Users/huayanpei/huablog/source/_posts/Neutron-L2/1.png">
 
 
 
@@ -125,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/05/转战Ubuntu后续/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/06/Neutron-L2/">
 
 
 
 
 
-  <title>转战Ubuntu后续 | 华彦裴的博客</title>
+  <title>Neutron_L2 | 华彦裴的博客</title>
   
 
 
@@ -268,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/转战Ubuntu后续/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/Neutron-L2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Briskk">
@@ -285,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">转战Ubuntu后续</h1>
+          <h1 class="post-title" itemprop="name headline">Neutron_L2</h1>
         
 
         <div class="post-meta">
@@ -297,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T20:36:53+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T21:31:01+08:00">
+                2019-03-06
               </time>
             
 
@@ -320,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/折腾/" itemprop="url" rel="index">
-                    <span itemprop="name">折腾</span>
+                  <a href="/categories/OpenStack/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenStack</span>
                   </a>
                 </span>
 
@@ -362,45 +359,81 @@
       
 
       
-        <p></p><p style="text-indent:2em">今天从Win10转用Ubuntu，提前考虑了一下，除了不能使用微信客户端和为知笔记客户端,哦，还有Itunes，没有其他对于Win10强烈需求。Linux之间交互更便利些，逐渐习惯吧，反正之前也是一直使用Xshell的，现在可以摆脱Xshell学生版四栏的限制了～</p><br>关于Ubuntu安装教程见<a href="https://www.cnblogs.com/Duane/p/6776302.html" target="_blank" rel="noopener">链接</a><p></p>
-<p></p><p style="text-indent:2em">简单总结一下安装完Ubuntu16.04LTS之后遇到的问题：</p>
-<h3 id="中文输入法"><a href="#中文输入法" class="headerlink" title="中文输入法"></a>中文输入法</h3><ul>
-<li>安装汉语语言包</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt intstall language-pack-zh-hans</span><br></pre></td></tr></table></figure>
+        <h1 id="Neutron-L2"><a href="#Neutron-L2" class="headerlink" title="Neutron L2"></a>Neutron L2</h1><p>网络二层资源的控制面处理和数据面流表设计</p>
+<h2 id="资源控制面处理"><a href="#资源控制面处理" class="headerlink" title="资源控制面处理"></a>资源控制面处理</h2><h3 id="ML2-Plugin"><a href="#ML2-Plugin" class="headerlink" title="ML2 Plugin"></a>ML2 Plugin</h3><p>管理L2</p>
+<blockquote>
+<p>plugin分为core和service，core plugin提供核心网络资源管理（network，subnet，port）</p>
+</blockquote>
 <ul>
-<li>谷歌拼音输入法</li>
+<li>ML2， Modular Layer 2,可同时管理多种Layer2技术的框架（OVS，LinuxBridge，Sr-IOV），可在不同节点部署linux bridge agent, openvswitch agent, hyper-v agent。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install fcitx-googlepinyin</span><br></pre></td></tr></table></figure>
+<h4 id="ML2-框架"><a href="#ML2-框架" class="headerlink" title="ML2 框架"></a>ML2 框架</h4><p>核心是加载多个mechanism driver，解耦网络拓扑类型与底层网络实现机制，通过driver形式扩展。基于AMQP实现</p>
 <ul>
-<li><p>安装语言包以及切换键盘输入方式系统<br>进入<code>System Settings</code>-&gt;<code>Language Support</code>,会自动提示安装语言包，安装完成后，将<code>Keyboard input method system</code>更改为<code>fcitx</code><br><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxw6bqj8m8j30ek0d0aaz.jpg" alt=""></p>
+<li>Extension drivers（Extension Manager）：L2资源与其他资源联系</li>
+<li>Type drivers(Type Manager): Local, vlan, Tunnel(gre，vxlan等）</li>
+<li>Mechanism drivers（Mechanism Manager）：OVS，linux bridge等</li>
+</ul>
+<h4 id="ML2-代码"><a href="#ML2-代码" class="headerlink" title="ML2 代码"></a>ML2 代码</h4><ul>
+<li><p>大部分基于数据库的操作，具体设备操作由agent完成</p>
+<ul>
+<li>管理 network/subnet/port资源及相应关系</li>
+<li>正确与L2 agent交互完成网络部署</li>
+</ul>
 </li>
-<li><p>重启电脑，可以观察到右上角输入法图标已经改变，fcitx输入法框架已经运行</p>
+<li><p>Typer Manager：加载对应type driver，对segment（对应一个网络）操作。</p>
 </li>
-<li>输入法配置<ul>
-<li><code>terminal</code>输入：</li>
+<li>Mechanism driver：处理操作，按配置顺序依次调用每个driver的对应函数完成。<blockquote>
+<p>RPC，消息队列的生产者类xxxNotifyAPI和对应的消费者类xxxRpcCallback，生产者函数主要使用rpc调用消费者同名函数，消费者函数执行实际的相应动作。</p>
+</blockquote>
+</li>
+<li>ML2是极易扩展的框架，不需要改变neutron代码的前提下对ML2进行扩展<ul>
+<li>增加 neutron资源 ==&gt; 扩展extension driver</li>
+<li>增加新类型网络 ==&gt; type driver</li>
+<li>增加新技术 ==&gt; mechanism driver</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fcitx-configtool</span><br></pre></td></tr></table></figure>
-<p>会自动弹出窗口，然后左下角➕号选择合适的语言及输入法<br><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fxw6tl327sj30o30cwdgf.jpg" alt=""><br>成功～</p>
-<h3 id="proxychains使用Socks5代理"><a href="#proxychains使用Socks5代理" class="headerlink" title="proxychains使用Socks5代理"></a>proxychains使用Socks5代理</h3><p>因为近期下载DARPA以及KDN的一些数据集，急需科学上网，偶尔Github也会大姨妈，所以直接就装个proxychains在终端使用代理吧。平时Chrome上使用SwitchyOmega，终端使用proxychains，应该能满足日常需求。<br>安装使用简单暴力：</p>
+<h3 id="Neutron-L2-多种方式实现（ovs，linuxbridge等）"><a href="#Neutron-L2-多种方式实现（ovs，linuxbridge等）" class="headerlink" title="Neutron L2 多种方式实现（ovs，linuxbridge等）"></a>Neutron L2 多种方式实现（ovs，linuxbridge等）</h3><p>以OVS为例，Neutron Server ML2 plugin有个OVS的mechanism driver，处理核心资源操作，以及和计算节点上OVS agent进行RPC通信，通知OVS agent刷新流表。</p>
+<h4 id="OVS-agent"><a href="#OVS-agent" class="headerlink" title="OVS agent"></a>OVS agent</h4><p>OVS网桥创建删除，流表的创建删除。实现Neutron虚拟网络二层转发，并为L3-L7网络的实现配置一些流表。</p>
 <ul>
-<li>安装</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install proxychains</span><br></pre></td></tr></table></figure>
+<li><p>配置OVS<br>rpc_loop(),周期性处理虚拟机port增删、更新，然后下发对应ovs流表，安全组，防火墙配置</p>
+<blockquote>
+<p>OVS流表下发两种方式：</p>
+<ol>
+<li>ovs-ofctl（相当于shell命令，每下发流表都需要fork子进程，性能差）</li>
+<li>native（ryu），OpenFlow下发流表性能好</li>
+</ol>
+</blockquote>
+</li>
+<li><p>RPC处理</p>
 <ul>
-<li>配置，在<code>/etc/proxychains.conf</code>最后一行把多余的注释掉，然后编辑</li>
+<li>上报状态：agent定期（30s）上报，3次没上报就失败</li>
+<li>port RPC：1.port_update 2.port_delete 3.network_update</li>
+<li>安全组RPC</li>
+<li>L2pop RPC</li>
 </ul>
-<pre><code>socks5 219.242.112.232 1080
-</code></pre><p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxw786entoj3095032aa2.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="Port-Binding端口绑定"><a href="#Port-Binding端口绑定" class="headerlink" title="Port Binding端口绑定"></a>Port Binding端口绑定</h3><ul>
+<li>虚拟机port binding（nova，neutron交互）：neutron调用ML2的mechanism driver进行端口绑定，nova根绝neutron中port binding属性来创建网络需要的网络设备。</li>
+<li>虚拟网卡的两种创建方式：1.nova指定port创建虚拟机 2.nova指定network创建虚拟机</li>
+<li>创建/更新port都会触发port binding</li>
+</ul>
+<h2 id="数据面流表设计"><a href="#数据面流表设计" class="headerlink" title="数据面流表设计"></a>数据面流表设计</h2><p>分别创建相同网络下相同计算节点的两个虚拟机，相同网络下不同节点的两个虚拟机，通过tcpdump抓包，流表，熟悉二层数据流走向</p>
+<h3 id="流表分析"><a href="#流表分析" class="headerlink" title="流表分析"></a>流表分析</h3><p>neutron向ovs发出管理tunnel port指令，以及提供流表。数据包进入ovs。将数据包和流表中的流表项进行匹配，如果发现匹配的流表项，则执行该流表项的指令集，没有匹配就发送到OpenFlow控制器上。</p>
+<h3 id="流表"><a href="#流表" class="headerlink" title="流表"></a>流表</h3><ul>
+<li>基本字段（duration_sec, table_id, priority, n_packet, idle_timeout)</li>
+<li>条件字段（in_port, dl_src, dl_dst(mac地址）, nw_src, nw_dst(IP地址）, dl_type, nw_proto)</li>
+<li>动作字段（正常转发normal，定向到某交换机端口output:port,丢弃drop，更改源/目的mac mod_dl_src/mod_dl_dst, 一条流可以有多个动作，按照先后顺序完成）</li>
+</ul>
+<h3 id="同节点"><a href="#同节点" class="headerlink" title="同节点"></a>同节点</h3><h4 id="流量走向图"><a href="#流量走向图" class="headerlink" title="流量走向图"></a>流量走向图</h4><p><img src="/2019/03/06/Neutron-L2/Users/huayanpei/huablog/source/_posts/Neutron-L2/1.png" alt=""></p>
+<h4 id="使用ovs-appctl追踪数据流向"><a href="#使用ovs-appctl追踪数据流向" class="headerlink" title="使用ovs-appctl追踪数据流向"></a>使用ovs-appctl追踪数据流向</h4><p><code>ovs-appctl ofproto/trace portname in_port=,tcp,dl_src=,dl_dst=,nw_src=,nw_dst=</code></p>
+<h4 id="两个虚机的流表分析过程"><a href="#两个虚机的流表分析过程" class="headerlink" title="两个虚机的流表分析过程"></a>两个虚机的流表分析过程</h4><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>ovs-appctl命令对同节点两vm数据流的追踪，报文在各网桥流表中匹配过程和动作及各网桥的功能。</p>
 <ul>
-<li>使用方法：在终端中，需要科学上网的命令前添加<code>proxychains</code>即可，特别方便。<br>例如：下载DARPA 1998数据集的README （我在mac上也安装使用了proxychains，只不过mac上输入<code>proxychains4</code>)<br><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxw7ecinjyj32hg0nwqt5.jpg" alt=""></li>
+<li>ply网桥：过滤非本机MAC的单播报文</li>
+<li>br-int：二层交换机的作用</li>
 </ul>
-<p>成功～</p>
-<p>2018.12.05先更新这两个吧，关于Ubuntu的各种小工具后续会持续在本文更新，我要刷题去了，昨天生日没做题，就算默认放假了吧。。。</p>
-<p>————-我是分割线—————</p>
-
+<h3 id="不同节点"><a href="#不同节点" class="headerlink" title="不同节点"></a>不同节点</h3>
       
     </div>
     
@@ -417,7 +450,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+            <a href="/tags/Neutron/" rel="tag"># Neutron</a>
           
         </div>
       
@@ -430,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/30/Tough-Life/" rel="next" title="Tough Life">
-                <i class="fa fa-chevron-left"></i> Tough Life
+              <a href="/2019/03/04/OpenStack学习一/" rel="next" title="OpenStack Neutron">
+                <i class="fa fa-chevron-left"></i> OpenStack Neutron
               </a>
             
           </div>
@@ -440,8 +473,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/04/操作系统读书笔记/" rel="prev" title="操作系统读书笔记">
-                操作系统读书笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/06/Neutron-DHCP/" rel="prev" title="Neutron DHCP & Namespace">
+                Neutron DHCP & Namespace <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -598,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#中文输入法"><span class="nav-number">1.</span> <span class="nav-text">中文输入法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proxychains使用Socks5代理"><span class="nav-number">2.</span> <span class="nav-text">proxychains使用Socks5代理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Neutron-L2"><span class="nav-number">1.</span> <span class="nav-text">Neutron L2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源控制面处理"><span class="nav-number">1.1.</span> <span class="nav-text">资源控制面处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ML2-Plugin"><span class="nav-number">1.1.1.</span> <span class="nav-text">ML2 Plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ML2-框架"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">ML2 框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ML2-代码"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">ML2 代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Neutron-L2-多种方式实现（ovs，linuxbridge等）"><span class="nav-number">1.1.2.</span> <span class="nav-text">Neutron L2 多种方式实现（ovs，linuxbridge等）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OVS-agent"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">OVS agent</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Port-Binding端口绑定"><span class="nav-number">1.1.3.</span> <span class="nav-text">Port Binding端口绑定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据面流表设计"><span class="nav-number">1.2.</span> <span class="nav-text">数据面流表设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流表分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">流表分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流表"><span class="nav-number">1.2.2.</span> <span class="nav-text">流表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同节点"><span class="nav-number">1.2.3.</span> <span class="nav-text">同节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流量走向图"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">流量走向图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ovs-appctl追踪数据流向"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">使用ovs-appctl追踪数据流向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两个虚机的流表分析过程"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">两个虚机的流表分析过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同节点"><span class="nav-number">1.2.4.</span> <span class="nav-text">不同节点</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
