@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Neutron,">
+  <meta name="keywords" content="overlay1,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Neutron DHCPDynamic host configuration protocol:动态主机配置协议，BOOTP协议基础使用进行IP地址分配的自动机制。  C/S通信模式，所有IP网络配置参数由DHCP server集中管理 3种IP地址分配策略： 手工 自动 动态（有效期限）   client和server不在同一网段时，DHCP中继（Relay）会转发DHCP报文 DHCP Sno">
-<meta name="keywords" content="Neutron">
+<meta name="description" content="为什么要用vxlan？ 数据中心对网络有新诉求 ==》提高资源利用率  虚拟机装在POD内自由迁移 VM在DC间迁移   需要大二层网络 ==》虚拟机摆脱地理位置限制进行自由迁移，跨地理的大二层网络  大规模服务器集群，跨地理，提高系统容灾  传统网不大？ VLAN技术自身局限 VLAN无法跨越三层边界 每一个VLAN相当于一个独立的三层IP网络，不同VLAN通信必须通过路由器，即使所有设备连到同">
+<meta name="keywords" content="overlay1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Neutron DHCP &amp; Namespace">
-<meta property="og:url" content="http://yoursite.com/2019/03/06/Neutron-DHCP/index.html">
+<meta property="og:title" content="VxLAN">
+<meta property="og:url" content="http://yoursite.com/2019/03/13/VxLAN/index.html">
 <meta property="og:site_name" content="华彦裴的博客">
-<meta property="og:description" content="Neutron DHCPDynamic host configuration protocol:动态主机配置协议，BOOTP协议基础使用进行IP地址分配的自动机制。  C/S通信模式，所有IP网络配置参数由DHCP server集中管理 3种IP地址分配策略： 手工 自动 动态（有效期限）   client和server不在同一网段时，DHCP中继（Relay）会转发DHCP报文 DHCP Sno">
+<meta property="og:description" content="为什么要用vxlan？ 数据中心对网络有新诉求 ==》提高资源利用率  虚拟机装在POD内自由迁移 VM在DC间迁移   需要大二层网络 ==》虚拟机摆脱地理位置限制进行自由迁移，跨地理的大二层网络  大规模服务器集群，跨地理，提高系统容灾  传统网不大？ VLAN技术自身局限 VLAN无法跨越三层边界 每一个VLAN相当于一个独立的三层IP网络，不同VLAN通信必须通过路由器，即使所有设备连到同">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-08T02:07:23.551Z">
+<meta property="og:updated_time" content="2019-03-17T05:45:51.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Neutron DHCP &amp; Namespace">
-<meta name="twitter:description" content="Neutron DHCPDynamic host configuration protocol:动态主机配置协议，BOOTP协议基础使用进行IP地址分配的自动机制。  C/S通信模式，所有IP网络配置参数由DHCP server集中管理 3种IP地址分配策略： 手工 自动 动态（有效期限）   client和server不在同一网段时，DHCP中继（Relay）会转发DHCP报文 DHCP Sno">
+<meta name="twitter:title" content="VxLAN">
+<meta name="twitter:description" content="为什么要用vxlan？ 数据中心对网络有新诉求 ==》提高资源利用率  虚拟机装在POD内自由迁移 VM在DC间迁移   需要大二层网络 ==》虚拟机摆脱地理位置限制进行自由迁移，跨地理的大二层网络  大规模服务器集群，跨地理，提高系统容灾  传统网不大？ VLAN技术自身局限 VLAN无法跨越三层边界 每一个VLAN相当于一个独立的三层IP网络，不同VLAN通信必须通过路由器，即使所有设备连到同">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/06/Neutron-DHCP/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/13/VxLAN/">
 
 
 
 
 
-  <title>Neutron DHCP & Namespace | 华彦裴的博客</title>
+  <title>VxLAN | 华彦裴的博客</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/Neutron-DHCP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/VxLAN/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Briskk">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Neutron DHCP & Namespace</h1>
+          <h1 class="post-title" itemprop="name headline">VxLAN</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T23:25:12+08:00">
-                2019-03-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T22:43:50+08:00">
+                2019-03-13
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenStack/" itemprop="url" rel="index">
-                    <span itemprop="name">OpenStack</span>
+                  <a href="/categories/虚拟化/" itemprop="url" rel="index">
+                    <span itemprop="name">虚拟化</span>
                   </a>
                 </span>
 
@@ -357,56 +357,99 @@
       
 
       
-        <h1 id="Neutron-DHCP"><a href="#Neutron-DHCP" class="headerlink" title="Neutron DHCP"></a>Neutron DHCP</h1><p>Dynamic host configuration protocol:动态主机配置协议，BOOTP协议基础使用进行IP地址分配的自动机制。</p>
+        <h2 id="为什么要用vxlan？"><a href="#为什么要用vxlan？" class="headerlink" title="为什么要用vxlan？"></a>为什么要用vxlan？</h2><ul>
+<li><p>数据中心对网络有新诉求 ==》提高资源利用率</p>
 <ul>
-<li>C/S通信模式，所有IP网络配置参数由DHCP server集中管理</li>
-<li>3种IP地址分配策略：<ul>
-<li>手工</li>
-<li>自动</li>
-<li>动态（有效期限）</li>
+<li>虚拟机装在POD内自由迁移</li>
+<li>VM在DC间迁移</li>
 </ul>
 </li>
-<li>client和server不在同一网段时，DHCP中继（Relay）会转发DHCP报文</li>
-<li>DHCP Snooping二层侦听（IP，MAC地址）</li>
-<li>使用UDP封装</li>
-<li>Server端口号：67，CLient端口号：68</li>
+<li><p>需要大二层网络 ==》虚拟机摆脱地理位置限制进行自由迁移，跨地理的大二层网络</p>
+</li>
+<li>大规模服务器集群，跨地理，提高系统容灾</li>
 </ul>
-<h2 id="DHCP控制面"><a href="#DHCP控制面" class="headerlink" title="DHCP控制面"></a>DHCP控制面</h2><h3 id="dhcp-agent"><a href="#dhcp-agent" class="headerlink" title="dhcp-agent"></a>dhcp-agent</h3><p>创建管理DHCP server，每个network对应一个virtual DHCP server。分为集中式DHCP<br>和分布式DHCP</p>
-<ul>
-<li>当处理network，subnet，port等对象，neutron-server会发送rpc消息给dhcp-agent，通知其做处理。</li>
-<li>dhcp-agent接受rpc消息，调用driver，创建dhcp-port，namespace，tap设备，路由信息，并启动dnsmasq进程提供DHCP服务</li>
-<li>周期同步：dhcp-agent开启一个线程，定期检查cache中所需dhcp环境是否正常，不正常就恢复。</li>
+<h2 id="传统网不大？"><a href="#传统网不大？" class="headerlink" title="传统网不大？"></a>传统网不大？</h2><ul>
+<li>VLAN技术自身局限<ul>
+<li>VLAN无法跨越三层边界</li>
+<li>每一个VLAN相当于一个独立的三层IP网络，不同VLAN通信必须通过路由器，即使所有设备连到同一个交换机上</li>
 </ul>
-<h3 id="dnsmasq"><a href="#dnsmasq" class="headerlink" title="dnsmasq"></a>dnsmasq</h3><p>轻量级dns server，dhcp server</p>
-<ul>
-<li>查看命名空间：<code>ip netns list</code></li>
-<li>查看network，与namespace一一对应：<code>neutron net-list</code></li>
+</li>
+<li>STP(Spanning tree protocol)生成树协议<ul>
+<li>消除二层环路，按照树的结构构造网络的拓扑结构</li>
+<li>缺点：收敛时间长（50节点内），阻断一半链路，带宽利用率低</li>
 </ul>
-<h2 id="DHCP-数据面"><a href="#DHCP-数据面" class="headerlink" title="DHCP 数据面"></a>DHCP 数据面</h2><h3 id="DHCP-报文"><a href="#DHCP-报文" class="headerlink" title="DHCP 报文"></a>DHCP 报文</h3><p>###工作流程<br>四个阶段，发现-提供-选择-确认</p>
-<ol>
-<li>发现阶段：client发送DHCP-DISCOVER寻找DHCP server，server发送REPLY</li>
-<li>提供阶段：server收到DHCP-DISCOVER，server选择合适的IP地址，连同IP地址租约等配置，发送DHCP-OFFER给client；DHCP分配IP优先级；server为确保IP地址未使用提前进行ping检测</li>
-<li>选择阶段：DHCP client只接收第一个收到的OFFER报文，然后广播发送DHCP-REQUEST来确认，通知所有DHCP sever选择的地址。</li>
-<li>确认阶段：server收到REQUEST报文。根据MAC地址来查找是否有租约记录？，如果有回复DHCP-ACK，否则DHCP-NAK。client收到ACK，广播ARP，无冲突的话使用该IP地址，冲突发生发送DHCP-DECLINE并重新DISCOVER。</li>
+</li>
+</ul>
+<h2 id="NVO3-Network-Virtualization-over-layer3"><a href="#NVO3-Network-Virtualization-over-layer3" class="headerlink" title="NVO3(Network Virtualization over layer3)"></a>NVO3(Network Virtualization over layer3)</h2><p>基于3层的overlay技术(VxLAN,NVGRE,STT)构建虚拟网络技术</p>
+<h3 id="Overlay"><a href="#Overlay" class="headerlink" title="Overlay"></a>Overlay</h3><ul>
+<li>网络架构上叠加的虚拟化技术模式，实现应用在网络上承载，于其内网络业务分离</li>
+<li>在现有物理网络上构建虚拟网络，上层应用只与虚拟网络相关</li>
+<li>组成：边缘设备，控制平面，转发平面<ul>
+<li>优点：OVS在内存，支持巨大流表；overlay不控制物理switch，部署灵活</li>
+</ul>
+</li>
+<li>Underlay：与软件交换机相对，SDN控制器直接控制物理设备<ul>
+<li>硬件转发：TOR设备</li>
+</ul>
+</li>
+</ul>
+<h3 id="运行NVO3设备"><a href="#运行NVO3设备" class="headerlink" title="运行NVO3设备"></a>运行NVO3设备</h3><p>NVE（network virtualization edge)，位于overlay边界</p>
+<h2 id="报文"><a href="#报文" class="headerlink" title="报文"></a>报文</h2><ul>
+<li>MAC在udp报文封装</li>
+<li>NVE以VETP标示（VxLAN tunnel endpoint）<ul>
+<li>每个NVE最少一个VTEP，以NVE的IP地址表示</li>
+<li>两个VTEP确定一条隧道</li>
+</ul>
+</li>
+</ul>
+<h2 id="两次虚拟化"><a href="#两次虚拟化" class="headerlink" title="两次虚拟化"></a>两次虚拟化</h2><ol>
+<li>NVE互连透穿二层保温，整网抽象成一个超大LAN switch</li>
+<li>VNI将超大switch虚拟出多个广播域，和VLAN本质一样，但是范围从4k个扩大到16m个</li>
+</ol>
+<h2 id="隧道-amp-VNI"><a href="#隧道-amp-VNI" class="headerlink" title="隧道&amp;VNI"></a>隧道&amp;VNI</h2><ul>
+<li>VNI：标示VxLAN网络中二层域</li>
+<li>两个VTEP确定一条VxLAN隧道，VTEP间这条VxLAN隧道将被两NVE间所有VNI所公用。</li>
+</ul>
+<h2 id="Underlay"><a href="#Underlay" class="headerlink" title="Underlay"></a>Underlay</h2><ol>
+<li>成熟三层路由协议（ISIS/OSPF/BGP），解决扩展性，增加网络、物理节点</li>
+<li>NVE外物理网元有三层能力即可构成NVO3网</li>
+</ol>
+<h2 id="VxLAN数据封装转发"><a href="#VxLAN数据封装转发" class="headerlink" title="VxLAN数据封装转发"></a>VxLAN数据封装转发</h2><p>端到端不变VTEP IP,逐跳改变外层MAC，源端二层报文可穿越IP网络到达目的端。</p>
+<p><strong>Data + 内层MAC + VNI + VTEP IP + 外层MAC</strong></p>
+<h2 id="VxLAN优点"><a href="#VxLAN优点" class="headerlink" title="VxLAN优点"></a>VxLAN优点</h2><ol>
+<li>网络依赖小：仅需NVE间IP可达</li>
+<li>环路避免：隧道间水平分割，IP overlay TTL</li>
+<li>高效转发：基于IP路由 SPF，ECMP</li>
+<li>快速收敛：网路变化实时侦听，全网拓扑毫秒收敛</li>
+<li>虚拟化：overlay + VNI， 容量16M</li>
+<li>部署灵活：物理设备和vswitch均部署</li>
 </ol>
 <ul>
-<li>更新租约：DHCP REQUESET，单播</li>
-<li>释放地址：DHCP RELEASE，单播</li>
+<li>VxLAN overlay层转发与VLAN一样</li>
 </ul>
-<h1 id="Linux-Namespace"><a href="#Linux-Namespace" class="headerlink" title="Linux Namespace"></a>Linux Namespace</h1><p>命名空间：包装了一些全局系统资源的抽象集合。总体目标：支持轻量级虚拟机具container实现。</p>
-<ul>
-<li>mount namespace CLONE_NEWS</li>
-<li>UTS namespace CLONE_NEWUTS</li>
-<li>IPC namespace CLONE_NEWIPC</li>
-<li>PID namespace CLONE_NEWPID</li>
-<li>Network namespace CLONE_NEWNET</li>
-<li>USER namespace CLONE_NEWUSER</li>
-</ul>
-<h2 id="命名空间API"><a href="#命名空间API" class="headerlink" title="命名空间API"></a>命名空间API</h2><ul>
-<li>clone(): 创建新namespace，创建新进程属于该namespace</li>
-<li>setns(): 关联一个存在的namesapce</li>
-<li>unshared():创建新namespace。但不会创建新进程</li>
-</ul>
+<h2 id="跨子网VxLAN数据转发（NVE1-A-gt-NVE5-gt-NVE6-E"><a href="#跨子网VxLAN数据转发（NVE1-A-gt-NVE5-gt-NVE6-E" class="headerlink" title="跨子网VxLAN数据转发（NVE1(A)==&gt; NVE5 ==&gt; NVE6(E))"></a>跨子网VxLAN数据转发（NVE1(A)==&gt; NVE5 ==&gt; NVE6(E))</h2><ol>
+<li>NVE1，查找网关MAC，封装隧道，使用VNI1</li>
+<li>网关解封装，根据内层IP头查路由，替换内层以太头，封装vxlan头，使用VNI2</li>
+<li>NVE6接收并解封装，根据目的MAC转发</li>
+</ol>
+<h2 id="VxLAN缺点"><a href="#VxLAN缺点" class="headerlink" title="VxLAN缺点"></a>VxLAN缺点</h2><ol>
+<li>需要手工建立隧道</li>
+<li>BUM报文大二层泛洪</li>
+</ol>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>MP-BGP 控制平面适合VxLAN，采用集中式网关</p>
+<blockquote>
+<p>EVPN：Ethernet VPN，基于MPLS的VPN，控制平面采用MP-BGP，抽象/数据平面被抽象并隔离，MP-BGP控制平面承载MAC/IP路由信息，数据平面封装有更多的选择。</p>
+<ol>
+<li>VxLAN自动建立隧道</li>
+<li>传递MAC地址</li>
+<li>ARP广播优化</li>
+</ol>
+</blockquote>
+<h2 id="VxLAN三种组网方案"><a href="#VxLAN三种组网方案" class="headerlink" title="VxLAN三种组网方案"></a>VxLAN三种组网方案</h2><ol>
+<li>纯硬（网络）overlay</li>
+<li>纯软（主机）overlay</li>
+<li>混合overlay方案</li>
+</ol>
 
       
     </div>
@@ -424,7 +467,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Neutron/" rel="tag"># Neutron</a>
+            <a href="/tags/overlay1/" rel="tag"># overlay1</a>
           
         </div>
       
@@ -437,8 +480,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/06/Neutron-L2/" rel="next" title="Neutron_L2">
-                <i class="fa fa-chevron-left"></i> Neutron_L2
+              <a href="/2019/03/08/Neutron-L3/" rel="next" title="Neutron_L3">
+                <i class="fa fa-chevron-left"></i> Neutron_L3
               </a>
             
           </div>
@@ -446,10 +489,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/08/Neutron-L3/" rel="prev" title="Neutron_L3">
-                Neutron_L3 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Neutron-DHCP"><span class="nav-number">1.</span> <span class="nav-text">Neutron DHCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP控制面"><span class="nav-number">1.1.</span> <span class="nav-text">DHCP控制面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dhcp-agent"><span class="nav-number">1.1.1.</span> <span class="nav-text">dhcp-agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dnsmasq"><span class="nav-number">1.1.2.</span> <span class="nav-text">dnsmasq</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP-数据面"><span class="nav-number">1.2.</span> <span class="nav-text">DHCP 数据面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP-报文"><span class="nav-number">1.2.1.</span> <span class="nav-text">DHCP 报文</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-Namespace"><span class="nav-number">2.</span> <span class="nav-text">Linux Namespace</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间API"><span class="nav-number">2.1.</span> <span class="nav-text">命名空间API</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用vxlan？"><span class="nav-number">1.</span> <span class="nav-text">为什么要用vxlan？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传统网不大？"><span class="nav-number">2.</span> <span class="nav-text">传统网不大？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NVO3-Network-Virtualization-over-layer3"><span class="nav-number">3.</span> <span class="nav-text">NVO3(Network Virtualization over layer3)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overlay"><span class="nav-number">3.1.</span> <span class="nav-text">Overlay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行NVO3设备"><span class="nav-number">3.2.</span> <span class="nav-text">运行NVO3设备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#报文"><span class="nav-number">4.</span> <span class="nav-text">报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两次虚拟化"><span class="nav-number">5.</span> <span class="nav-text">两次虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隧道-amp-VNI"><span class="nav-number">6.</span> <span class="nav-text">隧道&amp;VNI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Underlay"><span class="nav-number">7.</span> <span class="nav-text">Underlay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VxLAN数据封装转发"><span class="nav-number">8.</span> <span class="nav-text">VxLAN数据封装转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VxLAN优点"><span class="nav-number">9.</span> <span class="nav-text">VxLAN优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨子网VxLAN数据转发（NVE1-A-gt-NVE5-gt-NVE6-E"><span class="nav-number">10.</span> <span class="nav-text">跨子网VxLAN数据转发（NVE1(A)==&gt; NVE5 ==&gt; NVE6(E))</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VxLAN缺点"><span class="nav-number">11.</span> <span class="nav-text">VxLAN缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题"><span class="nav-number">12.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VxLAN三种组网方案"><span class="nav-number">13.</span> <span class="nav-text">VxLAN三种组网方案</span></a></li></ol></div>
             
 
           </div>
