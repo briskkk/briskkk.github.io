@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Neutron,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Neutron FloatingIPNeutron EIP QoS将需要限速的FIP地址下发到FW的地址中，物理组网的EIP流量经过FW，FW会对报文源地址检测，做到出方向限速。  需要在物理组网上EIP流量经过防火墙，所以在交换机上配置策略路由将源地址为EIP的报文重定向到防火墙，然后从防火墙返回到正常链路。  EIP可独立购买和持有的公网IP地址资源，位于公网网关，通过NAT映射到了被绑定实例">
+<meta name="keywords" content="Neutron">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Neutron相关服务">
+<meta property="og:url" content="http://yoursite.com/2019/03/17/Neutron相关服务/index.html">
+<meta property="og:site_name" content="华彦裴的博客">
+<meta property="og:description" content="Neutron FloatingIPNeutron EIP QoS将需要限速的FIP地址下发到FW的地址中，物理组网的EIP流量经过FW，FW会对报文源地址检测，做到出方向限速。  需要在物理组网上EIP流量经过防火墙，所以在交换机上配置策略路由将源地址为EIP的报文重定向到防火墙，然后从防火墙返回到正常链路。  EIP可独立购买和持有的公网IP地址资源，位于公网网关，通过NAT映射到了被绑定实例">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-17T16:57:10.150Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Neutron相关服务">
+<meta name="twitter:description" content="Neutron FloatingIPNeutron EIP QoS将需要限速的FIP地址下发到FW的地址中，物理组网的EIP流量经过FW，FW会对报文源地址检测，做到出方向限速。  需要在物理组网上EIP流量经过防火墙，所以在交换机上配置策略路由将源地址为EIP的报文重定向到防火墙，然后从防火墙返回到正常链路。  EIP可独立购买和持有的公网IP地址资源，位于公网网关，通过NAT映射到了被绑定实例">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/17/Neutron相关服务/">
+
+
+
+
+
+  <title>Neutron相关服务 | 华彦裴的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">华彦裴的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Neutron相关服务/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Briskk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/briskkk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="华彦裴的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Neutron相关服务</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-17T13:49:34+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenStack/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenStack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+          
+          
+ 	    <span class="post-meta-divider">|</span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Neutron-FloatingIP"><a href="#Neutron-FloatingIP" class="headerlink" title="Neutron FloatingIP"></a>Neutron FloatingIP</h1><h1 id="Neutron-EIP-QoS"><a href="#Neutron-EIP-QoS" class="headerlink" title="Neutron EIP QoS"></a>Neutron EIP QoS</h1><p>将需要限速的FIP地址下发到FW的地址中，物理组网的EIP流量经过FW，FW会对报文源地址检测，做到出方向限速。</p>
+<ul>
+<li>需要在物理组网上EIP流量经过防火墙，所以在交换机上配置策略路由将源地址为EIP的报文重定向到防火墙，然后从防火墙返回到正常链路。</li>
+</ul>
+<h2 id="EIP"><a href="#EIP" class="headerlink" title="EIP"></a>EIP</h2><p>可独立购买和持有的公网IP地址资源，位于公网网关，通过NAT映射到了被绑定实例位于私网的往卡上。==&gt; ECS实例可直接使用IP进行公网通信</p>
+<h1 id="Neutron-FWaaS"><a href="#Neutron-FWaaS" class="headerlink" title="Neutron FWaaS"></a>Neutron FWaaS</h1><h1 id="Neutron-VPN"><a href="#Neutron-VPN" class="headerlink" title="Neutron VPN"></a>Neutron VPN</h1><p>南北向出公网的能力和对等连接（VPC peering）东西向通信能力</p>
+<p>##实现方式（VPN，专线，EIP）</p>
+<h3 id="1-VPN-（远端cient-lt-gt-VPC-安全加密通信隧道）"><a href="#1-VPN-（远端cient-lt-gt-VPC-安全加密通信隧道）" class="headerlink" title="1. VPN （远端cient &lt;==&gt; VPC,安全加密通信隧道）"></a>1. VPN （远端cient &lt;==&gt; VPC,安全加密通信隧道）</h3><p>通过私有隧道技术在公共数据网络上仿真一条点到点的专线技术，利用公有网络实现私有数据通信</p>
+<p> <strong>CNA –&gt; vRouter –&gt; FW –&gt; external</strong></p>
+<h3 id="2-专线"><a href="#2-专线" class="headerlink" title="2. 专线"></a>2. 专线</h3><p>跨公有网络建立一个私有的专有的虚拟通信隧道</p>
+<p><strong>CNA(VM) –&gt; vRouter –&gt; 专线网关 –&gt; external</strong></p>
+<h3 id="3-EIP"><a href="#3-EIP" class="headerlink" title="3. EIP"></a>3. EIP</h3><p>弹性的云server使用固定公网IP与互联网互通</p>
+<p>VPC peering<br><strong>VPC1(VM) –&gt; vRouter –&gt; VPC2(VM)</strong></p>
+<h2 id="IPsec-VPN"><a href="#IPsec-VPN" class="headerlink" title="IPsec VPN"></a>IPsec VPN</h2><p>IPsec tunnel ：保护隧道的加密，哈希（IKE proposal）</p>
+<p><strong>userdata + ESPHead(安全协议头部）+ 隧道头部</strong></p>
+<h1 id="Neutron-LBaaS"><a href="#Neutron-LBaaS" class="headerlink" title="Neutron LBaaS"></a>Neutron LBaaS</h1><h2 id="三大场景"><a href="#三大场景" class="headerlink" title="三大场景"></a>三大场景</h2><ol>
+<li>内网用户在云网服务器内部访问</li>
+<li>外网用户在通过Internet访问</li>
+<li>私网用户通过企业VPN访问</li>
+</ol>
+<ul>
+<li>将访问流量在运行相同的多台服务器间进行分发的网络服务，扩展应用系统对外的服务能力，提高应用程序容错能力。</li>
+<li>对象：LoadBalancer，Listener，pool，member（后端服务器），Health monitor（监控检查后端服务器连通情况）</li>
+</ul>
+<h2 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h2><ol>
+<li>轮询（round robin）：用于短连接，HTTP等</li>
+<li>最少连接（least connections）：用于长连接，数据库连接等</li>
+<li>源地址（source IP）：将源地址进行hash（同一客户端始终选择同一后端服务器）匹配服务器</li>
+</ol>
+<h1 id="管理网络"><a href="#管理网络" class="headerlink" title="管理网络"></a>管理网络</h1><h2 id="物理组网"><a href="#物理组网" class="headerlink" title="物理组网"></a>物理组网</h2><p>管理真实网卡设备，并将网卡设备虚拟化结合web，提供灵活物理网络配置</p>
+<ul>
+<li>物理网络对象：NIC，Bond，System-if，Provider</li>
+<li>逻辑网口NIC：与物理网口一一对应，/usr/bin/port_info</li>
+</ul>
+<h2 id="网口聚合bond"><a href="#网口聚合bond" class="headerlink" title="网口聚合bond"></a>网口聚合bond</h2><p>将多个网络端口绑定为一个Bond</p>
+<ol>
+<li>active-standby主备模式：主不通，切换到备用网卡</li>
+<li>LACP负载均衡：负载均衡，需交换机支持</li>
+</ol>
+<ul>
+<li>Provider：全局配置，独立于模板。虚拟网络与物理网络对接的桥梁</li>
+</ul>
+<h2 id="配置物理网络"><a href="#配置物理网络" class="headerlink" title="配置物理网络"></a>配置物理网络</h2><p>创建网络规则 –&gt; 配置网络组件（NIC，Bond，provider-mapping，network-mapping） –&gt; 应用规则到主机</p>
+<h1 id="代理（代收发请求和响应）"><a href="#代理（代收发请求和响应）" class="headerlink" title="代理（代收发请求和响应）"></a>代理（代收发请求和响应）</h1><ul>
+<li>正向代理：代客户端，如VPN，隐藏了真实的客户端（代理服务器）</li>
+<li>反向代理：代服务器，如Nginx，隐藏了真实的服务器</li>
+</ul>
+<h2 id="Haproxy反向代理：高可用，负载均衡"><a href="#Haproxy反向代理：高可用，负载均衡" class="headerlink" title="Haproxy反向代理：高可用，负载均衡"></a>Haproxy反向代理：高可用，负载均衡</h2><p>提供统一的北向接口，所有的服务走反向代理，转发到对应服务，处理对外访问内部的请求</p>
+<h3 id="Haproxy前端：监听两个IP（外网，内网）"><a href="#Haproxy前端：监听两个IP（外网，内网）" class="headerlink" title="Haproxy前端：监听两个IP（外网，内网）"></a>Haproxy前端：监听两个IP（外网，内网）</h3><p>会屏蔽各个组件监听的IP和Port，对外只以URL形式暴露出去</p>
+<h2 id="Apacheproxy正向代理"><a href="#Apacheproxy正向代理" class="headerlink" title="Apacheproxy正向代理"></a>Apacheproxy正向代理</h2><p>内部对外访问（没有外网ip/没足够的外网ip），代理完成转发</p>
+<ul>
+<li>Apacheproxy会将请求的源IP地址换成代理IP</li>
+</ul>
+<h1 id="Neutron-DNS"><a href="#Neutron-DNS" class="headerlink" title="Neutron DNS"></a>Neutron DNS</h1><p>管理DNS服务，启动dnsmasq服务</p>
+<h2 id="配置DNS"><a href="#配置DNS" class="headerlink" title="配置DNS"></a>配置DNS</h2><p>跨az会不通，域名不能相互访问，解决如下：</p>
+<ol>
+<li>通过配置address字段，配域名映射规则</li>
+<li>配置server，配域名转发规则</li>
+</ol>
+<h1 id="OVS组网"><a href="#OVS组网" class="headerlink" title="OVS组网"></a>OVS组网</h1><h2 id="有安全组"><a href="#有安全组" class="headerlink" title="有安全组"></a>有安全组</h2><ol>
+<li>tap口：虚拟网卡实际连到物理机Tap设备，未直连br-int上，需要iptables实现安全组的安全策略功能</li>
+<li>qbr：linux网桥，辅助iptables</li>
+<li>策略网桥</li>
+<li>br-int：负责用户隔离，流量的vlan tag转换</li>
+</ol>
+<h2 id="无安全组"><a href="#无安全组" class="headerlink" title="无安全组"></a>无安全组</h2><p>没有qbr网桥，tap口直接连到策略网桥</p>
+<h1 id="MAC和ARP防欺骗"><a href="#MAC和ARP防欺骗" class="headerlink" title="MAC和ARP防欺骗"></a>MAC和ARP防欺骗</h1><h2 id="MAC欺骗"><a href="#MAC欺骗" class="headerlink" title="MAC欺骗"></a>MAC欺骗</h2><p>改变mac地址和交换机端口的对应关系。用主机A发送伪造的数据包，数据包源mac地址是B</p>
+<h2 id="ARP欺骗"><a href="#ARP欺骗" class="headerlink" title="ARP欺骗"></a>ARP欺骗</h2><p>改变mac地址和ip地址的对应关系</p>
+<h2 id="实现mac和arp防欺骗"><a href="#实现mac和arp防欺骗" class="headerlink" title="实现mac和arp防欺骗"></a>实现mac和arp防欺骗</h2><p>br-int网桥上实现，只对出虚拟机方向的报文过滤，只放分配的mach和ip对应的报文通过，其他被拦截。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Neutron/" rel="tag"># Neutron</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/13/VxLAN/" rel="next" title="VxLAN">
+                <i class="fa fa-chevron-left"></i> VxLAN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/briskkk.jpg" alt="Briskk">
+            
+              <p class="site-author-name" itemprop="name">Briskk</p>
+              <p class="site-description motion-element" itemprop="description">Every man dies, not everyman really lives.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/briskkk" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:simonhua1204@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/1911414777" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Neutron-FloatingIP"><span class="nav-number">1.</span> <span class="nav-text">Neutron FloatingIP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Neutron-EIP-QoS"><span class="nav-number">2.</span> <span class="nav-text">Neutron EIP QoS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EIP"><span class="nav-number">2.1.</span> <span class="nav-text">EIP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Neutron-FWaaS"><span class="nav-number">3.</span> <span class="nav-text">Neutron FWaaS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Neutron-VPN"><span class="nav-number">4.</span> <span class="nav-text">Neutron VPN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-VPN-（远端cient-lt-gt-VPC-安全加密通信隧道）"><span class="nav-number">4.0.1.</span> <span class="nav-text">1. VPN （远端cient &lt;==&gt; VPC,安全加密通信隧道）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-专线"><span class="nav-number">4.0.2.</span> <span class="nav-text">2. 专线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-EIP"><span class="nav-number">4.0.3.</span> <span class="nav-text">3. EIP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPsec-VPN"><span class="nav-number">4.1.</span> <span class="nav-text">IPsec VPN</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Neutron-LBaaS"><span class="nav-number">5.</span> <span class="nav-text">Neutron LBaaS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三大场景"><span class="nav-number">5.1.</span> <span class="nav-text">三大场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调度算法"><span class="nav-number">5.2.</span> <span class="nav-text">调度算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理网络"><span class="nav-number">6.</span> <span class="nav-text">管理网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#物理组网"><span class="nav-number">6.1.</span> <span class="nav-text">物理组网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网口聚合bond"><span class="nav-number">6.2.</span> <span class="nav-text">网口聚合bond</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置物理网络"><span class="nav-number">6.3.</span> <span class="nav-text">配置物理网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理（代收发请求和响应）"><span class="nav-number">7.</span> <span class="nav-text">代理（代收发请求和响应）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Haproxy反向代理：高可用，负载均衡"><span class="nav-number">7.1.</span> <span class="nav-text">Haproxy反向代理：高可用，负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Haproxy前端：监听两个IP（外网，内网）"><span class="nav-number">7.1.1.</span> <span class="nav-text">Haproxy前端：监听两个IP（外网，内网）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apacheproxy正向代理"><span class="nav-number">7.2.</span> <span class="nav-text">Apacheproxy正向代理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Neutron-DNS"><span class="nav-number">8.</span> <span class="nav-text">Neutron DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置DNS"><span class="nav-number">8.1.</span> <span class="nav-text">配置DNS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OVS组网"><span class="nav-number">9.</span> <span class="nav-text">OVS组网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有安全组"><span class="nav-number">9.1.</span> <span class="nav-text">有安全组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无安全组"><span class="nav-number">9.2.</span> <span class="nav-text">无安全组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MAC和ARP防欺骗"><span class="nav-number">10.</span> <span class="nav-text">MAC和ARP防欺骗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC欺骗"><span class="nav-number">10.1.</span> <span class="nav-text">MAC欺骗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP欺骗"><span class="nav-number">10.2.</span> <span class="nav-text">ARP欺骗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现mac和arp防欺骗"><span class="nav-number">10.3.</span> <span class="nav-text">实现mac和arp防欺骗</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Briskk</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
