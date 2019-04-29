@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Keystone,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="OpenStack架构  Nova: 管理VM的生命周期，OpenStack最核心的服务 Neutron：为OpenStack提供网络连接服务，负责创建和管理L2，L3网络，为VM提供虚拟网络和物理网络连接 Glance：管理VM的启动镜像，Nova创建VM时将使用Glance提供的镜像 Cinder：为VM提供块存储服务，Cinder提供的每个Volume在VM看来就是一块虚拟硬盘，一般用作数据">
+<meta name="keywords" content="Keystone">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenStack Keystone学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/28/OpenStack学习笔记/index.html">
+<meta property="og:site_name" content="华彦裴的博客">
+<meta property="og:description" content="OpenStack架构  Nova: 管理VM的生命周期，OpenStack最核心的服务 Neutron：为OpenStack提供网络连接服务，负责创建和管理L2，L3网络，为VM提供虚拟网络和物理网络连接 Glance：管理VM的启动镜像，Nova创建VM时将使用Glance提供的镜像 Cinder：为VM提供块存储服务，Cinder提供的每个Volume在VM看来就是一块虚拟硬盘，一般用作数据">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/04/28/OpenStack学习笔记/Users/huayanpei/huablog/source/_posts/OpenStack学习笔记/openstack_kilo_conceptual_arch.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/28/OpenStack学习笔记/Users/huayanpei/huablog/source/_posts/OpenStack学习笔记/openstack-arch-kilo-logical-v1.png">
+<meta property="og:updated_time" content="2019-04-29T15:00:47.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenStack Keystone学习笔记">
+<meta name="twitter:description" content="OpenStack架构  Nova: 管理VM的生命周期，OpenStack最核心的服务 Neutron：为OpenStack提供网络连接服务，负责创建和管理L2，L3网络，为VM提供虚拟网络和物理网络连接 Glance：管理VM的启动镜像，Nova创建VM时将使用Glance提供的镜像 Cinder：为VM提供块存储服务，Cinder提供的每个Volume在VM看来就是一块虚拟硬盘，一般用作数据">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/28/OpenStack学习笔记/Users/huayanpei/huablog/source/_posts/OpenStack学习笔记/openstack_kilo_conceptual_arch.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/28/OpenStack学习笔记/">
+
+
+
+
+
+  <title>OpenStack Keystone学习笔记 | 华彦裴的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">华彦裴的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/28/OpenStack学习笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Briskk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/briskkk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="华彦裴的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenStack Keystone学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-28T22:57:06+08:00">
+                2019-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenStack/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenStack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+          
+          
+ 	    <span class="post-meta-divider">|</span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="OpenStack架构"><a href="#OpenStack架构" class="headerlink" title="OpenStack架构"></a>OpenStack架构</h1><p><img src="/2019/04/28/OpenStack学习笔记/Users/huayanpei/huablog/source/_posts/OpenStack学习笔记/openstack_kilo_conceptual_arch.png" alt="OpenStack Conceptual Architecture"></p>
+<ul>
+<li>Nova: 管理VM的生命周期，OpenStack最核心的服务</li>
+<li>Neutron：为OpenStack提供网络连接服务，负责创建和管理L2，L3网络，为VM提供虚拟网络和物理网络连接</li>
+<li>Glance：管理VM的启动镜像，Nova创建VM时将使用Glance提供的镜像</li>
+<li>Cinder：为VM提供块存储服务，Cinder提供的每个Volume在VM看来就是一块虚拟硬盘，一般用作数据盘</li>
+<li>Swift：提供对象存储服务，VM可以通过RESTful API存放对象数据，作为可选的方案，Glance可以将镜像存放在Swift中，Cinder可以将Volume备份到Swift中</li>
+<li>Keystone：为OpenStack的各种服务提供认证和权限管理服务</li>
+<li>Ceilometer：提供OpenStack监控和计量服务，为报警、统计或计费提供数据</li>
+<li>Horizon：为OpenStack用户提供web子服务Portal</li>
+</ul>
+<h2 id="Logical-Architecture"><a href="#Logical-Architecture" class="headerlink" title="Logical Architecture"></a>Logical Architecture</h2><p><img src="/2019/04/28/OpenStack学习笔记/Users/huayanpei/huablog/source/_posts/OpenStack学习笔记/openstack-arch-kilo-logical-v1.png" alt="logical architecture">每个服务由若干个组件组成及各组件之间的逻辑关系，而在实际部署方案上，各个组件可以部署到不同的物理节点上。</p>
+<p>OpenStack本身是一个分布式系统，不但各个服务可以分布部署，服务中的组件也可以分布部署。</p>
+<h1 id="Keystone"><a href="#Keystone" class="headerlink" title="Keystone"></a>Keystone</h1><p>功能：</p>
+<ol>
+<li>管理用户及其权限</li>
+<li>维护OpenStack Services的endpoints</li>
+<li>Authentication（认证）和 Authorization（鉴权）</li>
+</ol>
+<ul>
+<li><strong>User</strong>：可以指代任何使用OpenStack的实体，可以是真正的用户，其他系统或者服务。<ul>
+<li>当User请求访问OpenStack时，Keystone会对其进行验证。</li>
+<li>除了admin和demo，OpenStack也为nova，cinder，glance，neutron服务创建了相应的User，admin也可以管理这些User</li>
+</ul>
+</li>
+<li><strong>Credentials</strong>：是User用来证明自己身份的信息，可以是<ul>
+<li>用户名/密码</li>
+<li>Token</li>
+<li>API key</li>
+<li>其他高级方式</li>
+</ul>
+</li>
+<li><strong>Authentication</strong>：Keystone验证User身份的过程。User访问OpenStack时向Keystone提交用户名和密码形式的Credentials，Keystone验证通过后会给User签发一个Token作为后续访问的Credential。</li>
+<li>Token：是由数字和字母组成的字符串，User成功Authentication后由Keystone分配给User<ul>
+<li>Token用作访问Service的Crendential</li>
+<li>Service会通过Keystone验证Token的有效性</li>
+<li>Token的有效期默认是24h</li>
+</ul>
+</li>
+<li>Project：用于将OpenStack的资源（计算、存储和网络）进行分组和隔离，根据 OpenStack服务对象不同，<strong>Project可以是一个客户（公有云，也叫租户）、部门或者项目组（私有云）</strong>。<ul>
+<li>资源的所有权属于Project，而不是User</li>
+<li>Tenant/Project/Account这几个术语是通用的</li>
+<li>每个User（包括admin）必须挂在Project里才能访问该Project的资源，<strong>一个User可以属于多个Project</strong></li>
+<li>admin相当于root用户，具有最高权限</li>
+</ul>
+</li>
+<li><strong>Service</strong>：Openstack的service包括各项服务，每个Service都会提供若干个Endpoint，User通过Endpoint访问资源和执行操作</li>
+<li><strong>Endpoint</strong>：是一个网络上可访问的地址，通常是一个URL，Service通过endpoint暴露自己的API。Keystone负责管理和维护每个Service的Endpoint。</li>
+<li><strong>Role</strong>：安全包含两部分：Authentication（认证）和Authorization（鉴权）。Authentication解决的是”你是谁？”的问题，Authorization解决的是”你能干什么”的问题。Keystone借助Role来实现Authorization的：<ul>
+<li>Keystone定义Role</li>
+<li>可以为User分配一个或多个Role</li>
+<li>Service决定每个Role能做什么事情，Service通过各自的policy.json对Role进行访问控制</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Keystone/" rel="tag"># Keystone</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/19/review/" rel="next" title="review">
+                <i class="fa fa-chevron-left"></i> review
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/29/OpenStack虚拟化/" rel="prev" title="OpenStack虚拟化">
+                OpenStack虚拟化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/briskkk.jpg" alt="Briskk">
+            
+              <p class="site-author-name" itemprop="name">Briskk</p>
+              <p class="site-description motion-element" itemprop="description">Every man dies, not everyman really lives.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/briskkk" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:simonhua1204@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/1911414777" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenStack架构"><span class="nav-number">1.</span> <span class="nav-text">OpenStack架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Logical-Architecture"><span class="nav-number">1.1.</span> <span class="nav-text">Logical Architecture</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keystone"><span class="nav-number">2.</span> <span class="nav-text">Keystone</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Briskk</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
