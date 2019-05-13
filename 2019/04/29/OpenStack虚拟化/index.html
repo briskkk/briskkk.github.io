@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="华彦裴的博客">
 <meta property="og:description" content="虚拟化虚拟化是云计算的基础，虚拟化使得在一台物理服务器上可以跑多台虚拟机，虚拟机共享物理机的CPU、内存、IO硬件资源，但逻辑上虚拟机之间时相互隔离的 物理机一般称为宿主机（host），宿主机上面的虚拟机是客户机（Guest） Host通过Hypervisor将自己的硬件资源虚拟化并提供给Guest使用 根据Hypervisor的实现方式和所处的位置，虚拟化又分为两种： 1型虚拟化Hypervis">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-29T15:26:43.795Z">
+<meta property="og:updated_time" content="2019-05-04T05:32:21.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenStack虚拟化">
 <meta name="twitter:description" content="虚拟化虚拟化是云计算的基础，虚拟化使得在一台物理服务器上可以跑多台虚拟机，虚拟机共享物理机的CPU、内存、IO硬件资源，但逻辑上虚拟机之间时相互隔离的 物理机一般称为宿主机（host），宿主机上面的虚拟机是客户机（Guest） Host通过Hypervisor将自己的硬件资源虚拟化并提供给Guest使用 根据Hypervisor的实现方式和所处的位置，虚拟化又分为两种： 1型虚拟化Hypervis">
@@ -388,6 +388,35 @@
 <p>为了在一台机器上运行多个虚拟机，KVM需要实现VA（虚拟内存）-&gt; PA（物理内存）-&gt; MA（机器内存）直接的地址转换。虚机OS控制虚拟地址到客户内存物理地址的映射，但是虚机OS不能直接访问实际机器内存，因此KVM需要负责映射客户物理内存到实际机器内存。</p>
 <h2 id="存储虚拟化"><a href="#存储虚拟化" class="headerlink" title="存储虚拟化"></a>存储虚拟化</h2><p>KVM的存储虚拟化是通过存储化（Storage Pool）和卷（volume）来管理的。</p>
 <p>Storage Pool是宿主机上可以看到的一片存储空间，可以是多种类型。Volume是Storage Pool中划分出的一块空间，宿主机将Volume分配给虚拟机，Volume在虚拟机中看到的就是一块硬盘。</p>
+<h2 id="KVM网络虚拟化"><a href="#KVM网络虚拟化" class="headerlink" title="KVM网络虚拟化"></a>KVM网络虚拟化</h2><ol>
+<li><p>物理交换机存在多个VLAN，每个VLAN拥有多个端口</p>
+<p>同一VLAN端口之间可以交换转发，不同VLAN端口之间隔离</p>
+<p>所以交换机其包含两层功能：交换与隔离</p>
+</li>
+<li><p>Linux的VLAN设备实现的隔离功能，但没有交换功能。</p>
+<p>一个VLAN母设备不能拥有两个相同的ID的VLAN子设备，因此也就不可能出现数据交换情况</p>
+</li>
+<li><p>Linux Bridge专门实现交换功能</p>
+<p>将同一个VLAN的子设备都挂载到一个Bridge上，设备之间就可以交换数据了</p>
+</li>
+</ol>
+<p>总结起来，Linux Bridge加VLAN在功能层面完整模拟现实世界里的二层交换机</p>
+<h1 id="云计算"><a href="#云计算" class="headerlink" title="云计算"></a>云计算</h1><h2 id="IT系统架构"><a href="#IT系统架构" class="headerlink" title="IT系统架构"></a>IT系统架构</h2><ol>
+<li>物理机架构：系统的资源利用率较低</li>
+<li>虚拟化架构：摩尔定律决定了物理服务器的计算能力越来越强，虚拟化技术的发展大大提高了物理服务器的资源利用率。物理机上运行若干虚拟机，应用系统直接部署到虚拟机上。虚拟机的好处还体现在减少了需要管理的物理机数量，同时节省了维护成本。</li>
+<li>云计算架构：虚拟化提高了单台物理机的资源利用率，随着虚拟化技术的应用，IT环境中越来越多的虚拟机，如何对IT环境中的虚拟机进行统一和高效管理，有需求就有供给。</li>
+</ol>
+<p>计算（CPU和内存）、存储和网络是IT系统的三类资源。通过云计算平他们，这三类资源变成了三个池子</p>
+<h2 id="云平台"><a href="#云平台" class="headerlink" title="云平台"></a>云平台</h2><p>云平台是一个面向服务的架构。按照提供服务的不同分为IaaS，PaaS，SaaS</p>
+<h2 id="IaaS"><a href="#IaaS" class="headerlink" title="IaaS"></a>IaaS</h2><p>IaaS（Infrastructure as a Service）提供的服务是虚拟机。</p>
+<p>Iaas负责管理虚机的生命周期，包括创建、修改、备份、启停、销毁等。</p>
+<p>使用者从云平台得到的是一个已经安装好镜像的虚拟机。</p>
+<p>使用者需要关心虚机的类型（OS）和配置（CPU、内存、磁盘），摒弃自己负责部署上层的中间件和应用。</p>
+<p>IaaS的使用者通常是数据中心的系统管理员。（AWS，阿里云等）</p>
+<h2 id="PaaS"><a href="#PaaS" class="headerlink" title="PaaS"></a>PaaS</h2><p>PaaS（Platform as a Service）提供的服务是应用的运行环境和一系列中间件服务（比如数据库、消息队列等）。</p>
+<p>使用者只需专注应用的开发，并将自己的应用和数据部署到PaaS环境中。</p>
+<p>PaaS负责保证这些服务的可用性和性能。</p>
+<p>PaaS的使用者通常是应用的</p>
 
       
     </div>
@@ -427,6 +456,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/13/5-13/" rel="prev" title="5.13">
+                5.13 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -505,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -527,7 +560,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -582,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟化"><span class="nav-number">1.</span> <span class="nav-text">虚拟化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1型虚拟化"><span class="nav-number">1.1.</span> <span class="nav-text">1型虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2型虚拟化"><span class="nav-number">1.2.</span> <span class="nav-text">2型虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVM"><span class="nav-number">1.3.</span> <span class="nav-text">KVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Libvirt"><span class="nav-number">1.3.1.</span> <span class="nav-text">Libvirt</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU虚拟化"><span class="nav-number">1.4.</span> <span class="nav-text">CPU虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存虚拟化"><span class="nav-number">1.5.</span> <span class="nav-text">内存虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储虚拟化"><span class="nav-number">1.6.</span> <span class="nav-text">存储虚拟化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟化"><span class="nav-number">1.</span> <span class="nav-text">虚拟化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1型虚拟化"><span class="nav-number">1.1.</span> <span class="nav-text">1型虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2型虚拟化"><span class="nav-number">1.2.</span> <span class="nav-text">2型虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVM"><span class="nav-number">1.3.</span> <span class="nav-text">KVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Libvirt"><span class="nav-number">1.3.1.</span> <span class="nav-text">Libvirt</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU虚拟化"><span class="nav-number">1.4.</span> <span class="nav-text">CPU虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存虚拟化"><span class="nav-number">1.5.</span> <span class="nav-text">内存虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储虚拟化"><span class="nav-number">1.6.</span> <span class="nav-text">存储虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVM网络虚拟化"><span class="nav-number">1.7.</span> <span class="nav-text">KVM网络虚拟化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#云计算"><span class="nav-number">2.</span> <span class="nav-text">云计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IT系统架构"><span class="nav-number">2.1.</span> <span class="nav-text">IT系统架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#云平台"><span class="nav-number">2.2.</span> <span class="nav-text">云平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IaaS"><span class="nav-number">2.3.</span> <span class="nav-text">IaaS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PaaS"><span class="nav-number">2.4.</span> <span class="nav-text">PaaS</span></a></li></ol></li></ol></div>
             
 
           </div>
