@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于NSL-KDD的说明： NSL-KDD Dateset 关于和KDD99数据集的比较：  NSL-KDD数据集的训练集中不包含冗余记录，所以分类器不会偏向更频繁的记录 NSL-KDD数据集的测试集中没有重复的记录，使得检测率更为准确 来自每个难度级别组的所选记录的数量与原始KDD数据集中的记录的百分比成反比。结果，不同机器学习方法的分类率在更宽的范围内变化，这使得对不同学习技术的准确评估更有效">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nslkdd初探">
+<meta property="og:url" content="http://yoursite.com/2019/06/26/nslkdd初探/index.html">
+<meta property="og:site_name" content="华彦裴的博客">
+<meta property="og:description" content="关于NSL-KDD的说明： NSL-KDD Dateset 关于和KDD99数据集的比较：  NSL-KDD数据集的训练集中不包含冗余记录，所以分类器不会偏向更频繁的记录 NSL-KDD数据集的测试集中没有重复的记录，使得检测率更为准确 来自每个难度级别组的所选记录的数量与原始KDD数据集中的记录的百分比成反比。结果，不同机器学习方法的分类率在更宽的范围内变化，这使得对不同学习技术的准确评估更有效">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4fjjdlewbj30b40h8764.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4fjk4djraj30bm08vjsi.jpg">
+<meta property="og:updated_time" content="2019-06-27T14:04:03.431Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nslkdd初探">
+<meta name="twitter:description" content="关于NSL-KDD的说明： NSL-KDD Dateset 关于和KDD99数据集的比较：  NSL-KDD数据集的训练集中不包含冗余记录，所以分类器不会偏向更频繁的记录 NSL-KDD数据集的测试集中没有重复的记录，使得检测率更为准确 来自每个难度级别组的所选记录的数量与原始KDD数据集中的记录的百分比成反比。结果，不同机器学习方法的分类率在更宽的范围内变化，这使得对不同学习技术的准确评估更有效">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4fjjdlewbj30b40h8764.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/26/nslkdd初探/">
+
+
+
+
+
+  <title>nslkdd初探 | 华彦裴的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">华彦裴的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/26/nslkdd初探/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Briskk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/briskkk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="华彦裴的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nslkdd初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-26T16:11:28+08:00">
+                2019-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+          
+          
+ 	    <span class="post-meta-divider">|</span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于NSL-KDD的说明：</p>
+<p><a href="https://www.unb.ca/cic/datasets/nsl.html" target="_blank" rel="noopener">NSL-KDD Dateset</a></p>
+<p>关于和KDD99数据集的比较：</p>
+<ol>
+<li>NSL-KDD数据集的训练集中不包含冗余记录，所以分类器不会偏向更频繁的记录</li>
+<li>NSL-KDD数据集的测试集中没有重复的记录，使得检测率更为准确</li>
+<li>来自每个难度级别组的所选记录的数量与原始KDD数据集中的记录的百分比成反比。结果，不同机器学习方法的分类率在更宽的范围内变化，这使得对不同学习技术的准确评估更有效。</li>
+<li>训练和测试中的记录数量设置是合理的，这使得在整套实验上运行实验成本低廉而无需随机选择一小部分。因此，不同研究工作的评估结果将是一致的和可比较的。</li>
+</ol>
+<p>关于特征的描述：41个特征</p>
+<ol>
+<li><p><strong>每个网络连接的基本特征 9种</strong></p>
+<ol>
+<li>持续时间duration：每个网络连接的持续时间，连续类型，定义是从TCP连接以3次握手建立算起，到FIN/ACK连接结束为止的时间。若为UDP，则将每个UDP数据包作为一条连接，数据集中大量duration=0的情况，是因为该条连接持续时间不足1秒。</li>
+<li>Protocol_type协议类型：3种，TCP，UDP，ICMP</li>
+<li>Service目标主机的网络服务类型：70种</li>
+<li>Flag:连接正常或错误的状态，11种，表示该连接是否按照协议要求开始或完成。SF表示状态正常，其他10种都是error</li>
+<li>Src_bytes:从源主机到目标主机的数据的字节数</li>
+<li>dst_bytes:从目标主机到源主机的数据的字节数</li>
+<li>land:若连接来自/送达同一个主机的端口则为1，否则为0</li>
+<li>wrong_fragement:错误分段的数量，连续类型</li>
+<li>urgent‘:加急包的个数</li>
+</ol>
+</li>
+<li><p><strong>TCP连接的内容特征 13种</strong> </p>
+<p>主要针对U2R和R2L攻击，不想DoS攻击那样在数据记录中具有频繁序列模式，一般都是嵌入在数据包的数据负载里面，单一的数据包和正常没有什么区别，所以从数据内容里面抽取了部分可能反映入侵行为的内容特征。</p>
+<ol start="10">
+<li><p>hot：访问系统敏感文件的目录的次数，例如访问系统目录，建立或执行程序</p>
+</li>
+<li><p>num_failed_logins：登陆尝试失败的次数</p>
+</li>
+<li><p>logged_in：成功登陆则为1</p>
+</li>
+<li><p>num_compromised:compromised条件出现的次数</p>
+</li>
+<li><p>root_shell：是否获得root shell权限</p>
+</li>
+<li><p>su_attempted：出现su root命令则为1</p>
+</li>
+<li><p>num_root：root用户访问次数</p>
+</li>
+<li><p>Num_file_creations：文件创建操作的次数</p>
+</li>
+<li><p>num_shells：使用shell命令的次数</p>
+</li>
+<li><p>num_access_files：访问控制文件的次数</p>
+</li>
+<li><p>num_outbound_cmds：一个FTP会话中出战连接的次数</p>
+</li>
+<li><p>is_hot_loigin：登陆是否属于hot列表</p>
+</li>
+<li><p>is_guest_login：是否是guest登录</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="3">
+<li><p><strong>基于时间的网络流量统计特征 9种</strong></p>
+<p>网络攻击事件在时间上有很强的关联性，因此统计当前连接记录与之前一段时间内的连接记录之间存在的某些联系可以更好的反应连接之间的关系。可以分为两种</p>
+<ul>
+<li>same host：只观察在过去两秒内与当前连接有相同目标主机的连接</li>
+<li>same service：只观察在过去两秒内与当前连接有相同服务的连接</li>
+</ul>
+<ol start="23">
+<li>count.：过去两秒内，与当前连接具有相同的目标主机的连接数</li>
+<li>srv_count. 过去两秒内，与当前连接具有相同服务的连接数</li>
+<li>serror_rate. 过去两秒内，在与当前连接具有相同目标主机的连接中，出现“SYN” 错误的连接的百分比</li>
+<li>srv_serror_rate. 过去两秒内，在与当前连接具有相同服务的连接中，出现“SYN” 错误的连接的百分比</li>
+<li>rerror_rate. 过去两秒内，在与当前连接具有相同目标主机的连接中，出现“REJ” 错误的连接的百分比</li>
+<li>srv_rerror_rate. 过去两秒内，在与当前连接具有相同服务的连接中，出现“REJ” 错误的连接的百分比</li>
+<li>same_srv_rate. 过去两秒内，在与当前连接具有相同目标主机的连接中，与当前连接具有相同服务的连接的百分比</li>
+<li>diff_srv_rate. 过去两秒内，在与当前连接具有相同目标主机的连接中，与当前连接具有不同服务的连接的百分比</li>
+<li>srv_diff_host_rate. 过去两秒内，在与当前连接具有相同服务的连接中，与当前连接具有不同目标主机的连接的百分比</li>
+</ol>
+<blockquote>
+<p>23、25、27、29、30这5个特征是 “same host” 特征，前提都是与当前连接具有相同目标主机的连接</p>
+<p>24、26、28、31这4个特征是 “same service” 特征，前提都是与当前连接具有相同服务的连接</p>
+</blockquote>
+</li>
+<li><p><strong>基于主机的网络流量统计特征</strong></p>
+<p>基于时间的流量统计只是在过去两秒的范围内统计与当前连接之间的关系，而在实际入侵中，有些 Probing攻击使用慢速攻击模式来扫描主机或端口，当它们扫描的频率大于2秒的时候，基于时间的统计方法就无法从数据中找到关联。所以Wenke Lee等按照目标主机进行分类，使用一个具有100个连接的时间窗，统计当前连接之前100个连接记录中与当前连接具有相同目标主机的统计信息。</p>
+<ol start="32">
+<li>dst_host_count. 前100个连接中，与当前连接具有相同目标主机的连接数</li>
+<li>dst_host_srv_count. 前100个连接中，与当前连接具有相同目标主机相同服务的连接数</li>
+<li>dst_host_same_srv_rate. 前100个连接中，与当前连接具有相同目标主机相同服务的连接所占的百分比</li>
+<li>dst_host_diff_srv_rate. 前100个连接中，与当前连接具有相同目标主机不同服务的连接所占的百分比</li>
+<li>dst_host_same_src_port_rate. 前100个连接中，与当前连接具有相同目标主机相同源端口的连接所占的百分比</li>
+<li>dst_host_srv_diff_host_rate. 前100个连接中，与当前连接具有相同目标主机相同服务的连接中，与当前连接具有不同源主机的连接所占的百分比</li>
+<li>dst_host_serror_rate. 前100个连接中，与当前连接具有相同目标主机的连接中，出现SYN错误的连接所占的百分比</li>
+<li>dst_host_srv_serror_rate. 前100个连接中，与当前连接具有相同目标主机相同服务的连接中，出现SYN错误的连接所占的百分比</li>
+<li>dst_host_rerror_rate. 前100个连接中，与当前连接具有相同目标主机的连接中，出现REJ错误的连接所占的百分比</li>
+<li>dst_host_rerror_rate. 前100个连接中，与当前连接具有相同目标主机的连接中，出现REJ错误的连接所占的百分比</li>
+</ol>
+</li>
+</ol>
+<p>   KDD99数据集是由DARPA98数据集经过数据挖掘和预处理后得到的。但KDD99与DARPA98并不是一一对应的，Wende Lee等人在处理原始连接数据时将部分重复数据去除，例如进行DoS攻击时产生大量相同的连接记录，就只取攻击过程中5分钟内的连接记录作为该攻击类型的数据集。同时，也会随机抽取正常(normal)数据连接作为正常数据集</p>
+<h2 id="攻击类型"><a href="#攻击类型" class="headerlink" title="攻击类型"></a>攻击类型</h2><ol>
+<li><p>DOS</p>
+<p>拒绝服务，耗尽了受害者的资源，从而使其无法处理合法请求。例如：syn flooding，相关的特征有：source bytes，percentage of packets with errors</p>
+</li>
+<li><p>Probing</p>
+<p>监视和其他探测攻击的目的是为了获取有关远程受害者的信息。例如：port scanning，相关的特征有：duration of connection, source bytes</p>
+</li>
+<li><p>U2R</p>
+<p>对本地root权限的未授权访问，攻击者通过给该攻击类型霍思燕难过普通账户登陆受害者系统，并尝试通过利用受害者的某些漏洞来获得root权限。例如：number of file creations，相关的特征有：number of file creations, number of shell prompts invoked</p>
+</li>
+<li><p>R2L</p>
+<p>从远程计算机进行未授权的访问，攻击者侵入远程计算机并获得受害计算机的本地访问权限，例如：password guessing，相关的特征：网络级别的特征（duration of connection, service requested）和主机级别的特征（number of failed login attempts）</p>
+</li>
+</ol>
+<h2 id="分类方法"><a href="#分类方法" class="headerlink" title="分类方法"></a>分类方法</h2><ul>
+<li>Decesion Tree：决策树将分类问题划分为子问题，它构建了一个决策树，该决策树又用于构建用于分类的模型</li>
+<li>Neural Networks：由生物神经网络驱动的统计学习模型的集合，用于估计或近似依赖于大量训练数据的函数</li>
+<li>Nearest Neighbor：此方法通过训练数据集保存所有类，并根据相似性度量对新类进行分类。</li>
+</ul>
+<p>   所讨论的方法都有显著特点和固有缺点。</p>
+<ol>
+<li>决策树需要时间来构建树</li>
+<li>当数据集增加时，KNN相当耗费时间</li>
+<li>神经网络仅对数值数据起作用，这需要将数据集中的文本数据转换为数值。</li>
+</ol>
+<p>   合成方法如下：</p>
+<ul>
+<li>C4.5</li>
+<li>K-means</li>
+<li>SVM</li>
+<li>Apriori</li>
+<li>PageRank</li>
+<li>AdaBoost</li>
+<li>K-Nearest Neighbor</li>
+<li>Naive Bayes</li>
+</ul>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>   关于特征的数据类型如下：</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4fjjdlewbj30b40h8764.jpg" alt="特征数据格式"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4fjk4djraj30bm08vjsi.jpg" alt="攻击类型分类"></p>
+<ol>
+<li><p>需要将三个非数值数据转换成数值数据，以及将39种具体的攻击类型转换成4类并映射为数值数据。</p>
+<p>Dos:4 ,Probe=3, R2L=2, U2R=1, Normal=0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"> protocol_map = &#123;<span class="string">'tcp'</span>:<span class="string">'1'</span>,<span class="string">'udp'</span>:<span class="string">'2'</span>,<span class="string">'icmp'</span>:<span class="string">'0'</span>&#125;</span><br><span class="line"> flag_map = &#123;<span class="string">'OTH'</span>:<span class="string">'0'</span>,<span class="string">'REJ'</span>:<span class="string">'1'</span>,<span class="string">'RSTO'</span>:<span class="string">'2'</span>,<span class="string">'RSTOS0'</span>:<span class="string">'3'</span>,<span class="string">'RSTR'</span>:<span class="string">'4'</span>,<span class="string">'S0'</span>:<span class="string">'5'</span>,<span class="string">'S1'</span>:<span class="string">'6'</span>,<span class="string">'S2'</span>:<span class="string">'7'</span>,<span class="string">'S3'</span>:<span class="string">'8'</span>,<span class="string">'SF'</span>:<span class="string">'9'</span>,<span class="string">'SH'</span>:<span class="string">'10'</span>&#125;</span><br><span class="line"> </span><br><span class="line"> attack_map = &#123;<span class="string">'normal'</span>:<span class="string">'0'</span>,</span><br><span class="line">               <span class="string">'ipsweep'</span>:<span class="string">'3'</span>,</span><br><span class="line">               <span class="string">'mscan'</span>:<span class="string">'3'</span>,</span><br><span class="line">               <span class="string">'nmap'</span>:<span class="string">'3'</span>,</span><br><span class="line">               <span class="string">'portsweep'</span>:<span class="string">'3'</span>,</span><br><span class="line">               <span class="string">'saint'</span>:<span class="string">'3'</span>,</span><br><span class="line">               <span class="string">'satan'</span>:<span class="string">'3'</span>,</span><br><span class="line">               <span class="string">'apache2'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'back'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'land'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'mailbomb'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'neptune'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'pod'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'processtable'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'smurf'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'teardrop'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'udpstorm'</span>:<span class="string">'4'</span>,</span><br><span class="line">               <span class="string">'buffer_overflow'</span>:<span class="string">'1'</span>,</span><br><span class="line">               <span class="string">'httptunnel'</span>:<span class="string">'1'</span>,</span><br><span class="line">               <span class="string">'loadmodule'</span>:<span class="string">'1'</span>,</span><br><span class="line">               <span class="string">'perl'</span>:<span class="string">'1'</span>,</span><br><span class="line">               <span class="string">'ps'</span>:<span class="string">'1'</span>,</span><br><span class="line">               <span class="string">'rootkit'</span>:<span class="string">'1'</span>,</span><br><span class="line">               <span class="string">'sqlattack'</span>:<span class="string">'1'</span>,</span><br><span class="line">               <span class="string">'xterm'</span>:<span class="string">'1'</span>,</span><br><span class="line">               <span class="string">'ftp_write'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'guess_passwd'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'imap'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'multihop'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'named'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'phf'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'sendmail'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'snmpgetattack'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'snmpguess'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'spy'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'warezclient'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'warezmaster'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'worm'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'xlock'</span>:<span class="string">'2'</span>,</span><br><span class="line">               <span class="string">'xsnoop'</span>:<span class="string">'2'</span>&#125;</span><br><span class="line">service_map =&#123;<span class="string">'aol'</span>:<span class="string">'0'</span>,<span class="string">'auth'</span>:<span class="string">'1'</span>,<span class="string">'bgp'</span>:<span class="string">'2'</span>,<span class="string">'courier'</span>:<span class="string">'3'</span>,<span class="string">'csnet_ns'</span>:<span class="string">'4'</span>,<span class="string">'ctf'</span>:<span class="string">'5'</span>,<span class="string">'daytime'</span>:<span class="string">'6'</span>,<span class="string">'discard'</span>:<span class="string">'7'</span>,<span class="string">'domain'</span>:<span class="string">'8'</span>,<span class="string">'domain_u'</span>:<span class="string">'9'</span>,<span class="string">'echo'</span>:<span class="string">'10'</span>,<span class="string">'eco_i'</span>:<span class="string">'11'</span>,<span class="string">'ecr_i'</span>:<span class="string">'12'</span>,<span class="string">'efs'</span>:<span class="string">'13'</span>,<span class="string">'exec'</span>:<span class="string">'14'</span>,<span class="string">'finger'</span>:<span class="string">'15'</span>,<span class="string">'ftp'</span>:<span class="string">'16'</span>,<span class="string">'ftp_data'</span>:<span class="string">'17'</span>,<span class="string">'gopher'</span>:<span class="string">'18'</span>,<span class="string">'harvest'</span>:<span class="string">'19'</span>,<span class="string">'hostnames'</span>:<span class="string">'20'</span>,<span class="string">'http'</span>:<span class="string">'21'</span>,<span class="string">'http_2784'</span>:<span class="string">'22'</span>,<span class="string">'http_443'</span>:<span class="string">'23'</span>,<span class="string">'http_8001'</span>:<span class="string">'24'</span>,<span class="string">'imap4'</span>:<span class="string">'25'</span>,<span class="string">'IRC'</span>:<span class="string">'26'</span>,<span class="string">'iso_tsap'</span>:<span class="string">'27'</span>,<span class="string">'klogin'</span>:<span class="string">'28'</span>,<span class="string">'kshell'</span>:<span class="string">'29'</span>,<span class="string">'ldap'</span>:<span class="string">'30'</span>,<span class="string">'link'</span>:<span class="string">'31'</span>,<span class="string">'login'</span>:<span class="string">'32'</span>,<span class="string">'mtp'</span>:<span class="string">'33'</span>,<span class="string">'name'</span>:<span class="string">'34'</span>,<span class="string">'netbios_dgm'</span>:<span class="string">'35'</span>,<span class="string">'netbios_ns'</span>:<span class="string">'36'</span>,<span class="string">'netbios_ssn'</span>:<span class="string">'37'</span>,<span class="string">'netstat'</span>:<span class="string">'38'</span>,<span class="string">'nnsp'</span>:<span class="string">'39'</span>,<span class="string">'nntp'</span>:<span class="string">'40'</span>,<span class="string">'ntp_u'</span>:<span class="string">'41'</span>,<span class="string">'other'</span>:<span class="string">'42'</span>,<span class="string">'pm_dump'</span>:<span class="string">'43'</span>,<span class="string">'pop_2'</span>:<span class="string">'44'</span>,<span class="string">'pop_3'</span>:<span class="string">'45'</span>,<span class="string">'printer'</span>:<span class="string">'46'</span>,<span class="string">'private'</span>:<span class="string">'47'</span>,<span class="string">'red_i'</span>:<span class="string">'48'</span>,<span class="string">'remote_job'</span>:<span class="string">'49'</span>,<span class="string">'rje'</span>:<span class="string">'50'</span>,<span class="string">'shell'</span>:<span class="string">'51'</span>,<span class="string">'smtp'</span>:<span class="string">'52'</span>,<span class="string">'sql_net'</span>:<span class="string">'53'</span>,<span class="string">'ssh'</span>:<span class="string">'54'</span>,<span class="string">'sunrpc'</span>:<span class="string">'55'</span>,<span class="string">'supdup'</span>:<span class="string">'56'</span>, <span class="string">'systat'</span>:<span class="string">'57'</span>, <span class="string">'telnet'</span>:<span class="string">'58'</span>,<span class="string">'tftp_u'</span>:<span class="string">'59'</span>,<span class="string">'tim_i'</span>:<span class="string">'60'</span>,<span class="string">'time'</span>:<span class="string">'61'</span>,<span class="string">'urh_i'</span>:<span class="string">'62'</span>,<span class="string">'urp_i'</span>:<span class="string">'63'</span>, <span class="string">'uucp'</span>:<span class="string">'64'</span>,<span class="string">'uucp_path'</span>:<span class="string">'65'</span>,<span class="string">'vmnet'</span>:<span class="string">'66'</span>, <span class="string">'whois'</span>:<span class="string">'67'</span>,<span class="string">'X11'</span>:<span class="string">'68'</span>,<span class="string">'Z39_50'</span>:<span class="string">'69'</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>经过映射：Dos:4 ,Probe=3, R2L=2, U2R=1, Normal=0</p>
+</li>
+</ol>
+<table><br>   <tr><br>      <td rowspan="2">dataset type</td><br>      <td colspan="6">Total </td><br>   </tr><br>   <tr><br>      <td>records</td><br>      <td>normal</td><br>      <td>Dos</td><br>      <td>Probe</td><br>      <td>U2R</td><br>      <td>R2L</td><br>   </tr><br>   <tr><br>      <td rowspan="2">KDD Train+</td><br>      <td rowspan="2">125973</td><br>      <td>67343</td><br>      <td>45927</td><br>      <td>11656</td><br>      <td>52</td><br>      <td>995</td><br>   </tr><br>   <tr><br>      <td>53.46%</td><br>      <td>36.46%</td><br>      <td>9.25%</td><br>      <td>0.04%</td><br>      <td>0.79%</td><br>   </tr><br>   <tr><br>      <td rowspan="2">KDD Test+</td><br>      <td rowspan="2">22544</td><br>      <td>9711</td><br>      <td>7458</td><br>      <td>2421</td><br>      <td>200</td><br>      <td>2754</td><br>   </tr><br>   <tr><br>      <td>43.08%</td><br>      <td>33.08%</td><br>      <td>10.74%</td><br>      <td>0.89%</td><br>      <td>12.22%</td><br>   </tr><br></table>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/20/论文思路整理/" rel="next" title="论文思路整理">
+                <i class="fa fa-chevron-left"></i> 论文思路整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/briskkk.jpg" alt="Briskk">
+            
+              <p class="site-author-name" itemprop="name">Briskk</p>
+              <p class="site-description motion-element" itemprop="description">Every man dies, not everyman really lives.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/briskkk" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:simonhua1204@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/1911414777" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击类型"><span class="nav-number">1.</span> <span class="nav-text">攻击类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类方法"><span class="nav-number">2.</span> <span class="nav-text">分类方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据预处理"><span class="nav-number">3.</span> <span class="nav-text">数据预处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Briskk</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
