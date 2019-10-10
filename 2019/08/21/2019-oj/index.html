@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Algorithm,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 牛牛找工作2. 被3整除3. 安置路灯本来想法是将数组隔三个元素进行分片，如果有“.”计数器就加1，但是没有考虑首尾元素，而且存在较大漏洞。 遍历路灯字符串，如果遇见“.”计数器就加1，然后往后挪3个位置，如果遇到“X”，就直接往后挪一个位置。 使用贪心算法，就要找到该问题的的最优子结构以及使用该贪心策略可以找出子结构的最优解，这个题的子结构就是遇到“.”还是“X”,策略就是+3还是+1。">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019_oj">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/2019-oj/index.html">
+<meta property="og:site_name" content="华彦裴的博客">
+<meta property="og:description" content="1. 牛牛找工作2. 被3整除3. 安置路灯本来想法是将数组隔三个元素进行分片，如果有“.”计数器就加1，但是没有考虑首尾元素，而且存在较大漏洞。 遍历路灯字符串，如果遇见“.”计数器就加1，然后往后挪3个位置，如果遇到“X”，就直接往后挪一个位置。 使用贪心算法，就要找到该问题的的最优子结构以及使用该贪心策略可以找出子结构的最优解，这个题的子结构就是遇到“.”还是“X”,策略就是+3还是+1。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-29T03:43:04.984Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019_oj">
+<meta name="twitter:description" content="1. 牛牛找工作2. 被3整除3. 安置路灯本来想法是将数组隔三个元素进行分片，如果有“.”计数器就加1，但是没有考虑首尾元素，而且存在较大漏洞。 遍历路灯字符串，如果遇见“.”计数器就加1，然后往后挪3个位置，如果遇到“X”，就直接往后挪一个位置。 使用贪心算法，就要找到该问题的的最优子结构以及使用该贪心策略可以找出子结构的最优解，这个题的子结构就是遇到“.”还是“X”,策略就是+3还是+1。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/2019-oj/">
+
+
+
+
+
+  <title>2019_oj | 华彦裴的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">华彦裴的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/2019-oj/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Briskk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/briskkk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="华彦裴的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2019_oj</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T12:17:14+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+          
+          
+ 	    <span class="post-meta-divider">|</span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-牛牛找工作"><a href="#1-牛牛找工作" class="headerlink" title="1. 牛牛找工作"></a>1. 牛牛找工作</h3><h3 id="2-被3整除"><a href="#2-被3整除" class="headerlink" title="2. 被3整除"></a>2. 被3整除</h3><h3 id="3-安置路灯"><a href="#3-安置路灯" class="headerlink" title="3. 安置路灯"></a>3. 安置路灯</h3><p>本来想法是将数组隔三个元素进行分片，如果有<code>“.”</code>计数器就加1，但是没有考虑首尾元素，而且存在较大漏洞。</p>
+<p>遍历路灯字符串，如果遇见<code>“.”</code>计数器就加1，然后往后挪3个位置，如果遇到<code>“X”</code>，就直接往后挪一个位置。</p>
+<p>使用贪心算法，就要找到该问题的的最优子结构以及使用该贪心策略可以找出子结构的最优解，这个题的子结构就是遇到<code>“.”</code>还是<code>“X”</code>,策略就是<code>+3</code>还是<code>+1</code>。</p>
+<h3 id="4-迷路的牛牛"><a href="#4-迷路的牛牛" class="headerlink" title="4. 迷路的牛牛"></a>4. 迷路的牛牛</h3><h3 id="5-数对"><a href="#5-数对" class="headerlink" title="5. 数对"></a>5. 数对</h3><p>第一个想法就是设置两个循环，然后遍历所有数对，筛选条件，结果超时了。</p>
+<p>当除数是<code>y</code>时，当<code>x=1~n</code>时，余数是1，2，3，–y-1，0循环出现，循环节长度为y，所以设置<code>y=k~n</code>,然后对于<code>x=1~n</code>,总共出现了<code>n//y</code>个循环节，然后数出每个循环节里面不小于k的余数，最后再输出不满一个循环节的不小于k的余数。</p>
+<h3 id="6-矩形重叠"><a href="#6-矩形重叠" class="headerlink" title="6.* 矩形重叠"></a>6.* 矩形重叠</h3><h3 id="7-牛牛的闹钟"><a href="#7-牛牛的闹钟" class="headerlink" title="7. 牛牛的闹钟"></a>7. 牛牛的闹钟</h3><p>核心就是将闹钟时间转换为分钟，这样方便进行计算比较，根据最晚起床时间，然后使用二分法找到闹钟位置，二分法模块<code>bisect.bisect(alarm,getup)</code></p>
+<h3 id="8-牛牛的背包问题"><a href="#8-牛牛的背包问题" class="headerlink" title="8.* 牛牛的背包问题"></a>8.* 牛牛的背包问题</h3><h3 id="9-俄罗斯方块"><a href="#9-俄罗斯方块" class="headerlink" title="9. 俄罗斯方块"></a>9. 俄罗斯方块</h3><p>就是取n列中最短的那列就可以了</p>
+<h3 id="10-瞌睡"><a href="#10-瞌睡" class="headerlink" title="10. 瞌睡"></a>10. 瞌睡</h3><h3 id="11-丰收"><a href="#11-丰收" class="headerlink" title="11. 丰收"></a>11. 丰收</h3><p>利用了两个库函数，首先是构建苹果堆的<code>frome itertools import accumulate</code>函数，第二个是<code>bisect_left</code>二分查找函数来确定查询苹果在苹果堆中的位置</p>
+<h3 id="12-整理房间"><a href="#12-整理房间" class="headerlink" title="12. 整理房间"></a>12. 整理房间</h3><h3 id="13-表达式求值"><a href="#13-表达式求值" class="headerlink" title="13. 表达式求值"></a>13. 表达式求值</h3><p>由于只有几种可能性，可以直接穷举所有可能。</p>
+<h3 id="14-塔"><a href="#14-塔" class="headerlink" title="14. 塔"></a>14. 塔</h3><h3 id="15-小易的字典"><a href="#15-小易的字典" class="headerlink" title="15. 小易的字典"></a>15. 小易的字典</h3><p>超时了。。通过率20%，想法是通过<code>itertools.permutations</code>函数对字符串排列组合之后，再通过集合去重并排序，最后输出字符串</p>
+<ul>
+<li>解题：</li>
+</ul>
+<ol>
+<li>超时解法：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        a,b,c = map(int,input().strip().split())</span><br><span class="line">        string = <span class="string">"a"</span>*a+<span class="string">"z"</span>*b</span><br><span class="line">        out = set(itertools.permutations(string))</span><br><span class="line">        out = sorted(list(out))</span><br><span class="line">        out_string = <span class="string">''</span>.join(out[c<span class="number">-1</span>])</span><br><span class="line">        print(out_string)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="16-获得最多的奖金"><a href="#16-获得最多的奖金" class="headerlink" title="16. 获得最多的奖金"></a>16. 获得最多的奖金</h3><p>又超时了，通过率55.56%，想法是通过<code>itertools.accumulate</code>函数对正向奖金数组求前n项和，再求反向奖金数组求前n项和，求出这两个数组和的公共数字，如果数字满足位置要求（即不能重复计算）即为所求数字。</p>
+<p>应当使用双指针法，设置左右两个指针，通过比较左边数组和和右边数组和对指针进行移动，</p>
+<ul>
+<li>解题：</li>
+</ul>
+<ol>
+<li>超时解法：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> accumulate</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        num = int(input().strip())</span><br><span class="line">        rewards = [int(i) <span class="keyword">for</span> i <span class="keyword">in</span> input().strip().split()]</span><br><span class="line">        rewards_re = rewards[::<span class="number">-1</span>]</span><br><span class="line">        rewards_sum = list(accumulate(rewards))</span><br><span class="line">        rewards_re_sum = list(accumulate(rewards_re))</span><br><span class="line">        common = list(set(rewards_sum).intersection(set(rewards_re_sum)))</span><br><span class="line">        max_rewards = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> common:</span><br><span class="line">            <span class="keyword">if</span> rewards_sum.index(i)+rewards_re_sum.index(i)+<span class="number">2</span> &lt;= num <span class="keyword">and</span> i &gt; max_rewards:</span><br><span class="line">                max_rewards = i</span><br><span class="line">        print(max_rewards)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>双指针法：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rewards</span><span class="params">(n,nums)</span>:</span></span><br><span class="line">    left,right = <span class="number">-1</span>,n</span><br><span class="line">    sumleft,sumright = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        <span class="keyword">if</span> sumleft == sumright:</span><br><span class="line">            res = sumleft</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">            sumleft += nums[left]</span><br><span class="line">            sumright += nums[right]</span><br><span class="line">        <span class="keyword">elif</span> sumleft &lt;= sumright:</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            sumleft += nums[left]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">            sumright += nums[right]</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        n = int(input().strip())</span><br><span class="line">        nums = [int(i) <span class="keyword">for</span> i <span class="keyword">in</span> input().strip().split()]</span><br><span class="line">        print(rewards(n,nums))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="17-将满二叉树转换为求和树"><a href="#17-将满二叉树转换为求和树" class="headerlink" title="17.* 将满二叉树转换为求和树"></a>17.* 将满二叉树转换为求和树</h3><p>关于二叉树的练习太少了，明白题意就是求除原二叉树的所有子节点之和，但是不会自己写。。根据参考答案求解</p>
+<h3 id="18-搭积木"><a href="#18-搭积木" class="headerlink" title="18. 搭积木"></a>18. 搭积木</h3><p>又超时了。。通过率42.86%。思路是：首先将积木数组的第一列数据进行排序，然后对第二列数据使用动态规划查找最长上升子序列，</p>
+<ul>
+<li>解题：</li>
+</ul>
+<ol>
+<li>超时解法：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">LIS</span><span class="params">(nums)</span>:</span></span><br><span class="line">    dp = [<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums))]</span><br><span class="line">    maxresult = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i):</span><br><span class="line">            <span class="keyword">if</span> nums[j] &lt;= nums[i]:</span><br><span class="line">                dp[i] = max(dp[i],dp[j]+<span class="number">1</span>)</span><br><span class="line">        maxresult = max(dp[i], maxresult)</span><br><span class="line">    <span class="keyword">return</span> maxresult</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        num = int(input().strip())</span><br><span class="line">        jimu = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">            jimu.append([int(i) <span class="keyword">for</span> i <span class="keyword">in</span> input().strip().split()])</span><br><span class="line">        jimu = sorted(jimu,key=<span class="keyword">lambda</span> d:d[<span class="number">0</span>])</span><br><span class="line">        numbers = []</span><br><span class="line">        <span class="keyword">for</span> ji <span class="keyword">in</span> jimu:</span><br><span class="line">            numbers.append(ji[<span class="number">1</span>])</span><br><span class="line">        print(LIS(numbers))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>解法:</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> bisect <span class="keyword">import</span> bisect</span><br><span class="line">n = int(input())</span><br><span class="line">bricks = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    W, L = map(int, sys.stdin.readline().strip().split())</span><br><span class="line">    bricks.append((W, L))</span><br><span class="line">bricks = sorted(bricks, key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">LIS = []</span><br><span class="line"><span class="keyword">for</span> brick <span class="keyword">in</span> bricks:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> LIS:</span><br><span class="line">        LIS.append(brick[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">elif</span> LIS[<span class="number">-1</span>] &lt;= brick[<span class="number">1</span>]:</span><br><span class="line">        LIS.append(brick[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        index = bisect(LIS, brick[<span class="number">1</span>])</span><br><span class="line">        LIS[index] = brick[<span class="number">1</span>]</span><br><span class="line">print(len(LIS))</span><br><span class="line">/**</span><br><span class="line">                 * 这里解释一下：当我们加入的积木 bricks[i][<span class="number">1</span>],它的长度小于dp中的最大长度</span><br><span class="line">                 * 我们需要在数组dp中找到 &lt;= bricks[i][<span class="number">1</span>] 最接近的值的索引 index，将它替换成现在的长度 bricks[i][<span class="number">1</span>]</span><br><span class="line">                 * 为什么要替换: dp数组中积木的宽度都是小于 bricks[i]的，积木bricks[i]的宽度比dp[index]宽度大，</span><br><span class="line">                 * 而且bricks[i]的长度 &gt;= dp[index],在堆积木情况下，当然是优先选择宽度和长度更大的积木。</span><br><span class="line">                 */</span><br></pre></td></tr></table></figure>
+<h3 id="19-魔法深渊"><a href="#19-魔法深渊" class="headerlink" title="19. 魔法深渊"></a>19. 魔法深渊</h3><p>这题是很明显的动态规划问题，当前台阶方法数 = 所有一次可到达当前台阶方法数的和，即<code>dp[n] = dp[n-1]+dp[n-2]+dp[n-4]+... ( n-t&gt;=0,dp[0]=1 )</code>,由于已经确定了最大台阶数为1000，所以可以将所有台阶的情况都能计算出来。注意为防止输出溢出，要将输出对10^9 + 3取模。</p>
+<ul>
+<li>解题：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        dp = [<span class="number">0</span>]* <span class="number">1001</span></span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        mod = <span class="number">1000000003</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">1001</span>):</span><br><span class="line">            t = <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> t &lt;= i:</span><br><span class="line">                dp[i] += dp[i-t]</span><br><span class="line">                dp[i] %= mod</span><br><span class="line">                t = t*<span class="number">2</span></span><br><span class="line">        num = int(input().strip())</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">            print(dp[int(input().strip())])</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="20-善变的同伴"><a href="#20-善变的同伴" class="headerlink" title="20.*  善变的同伴"></a>20.*  善变的同伴</h3><p>思路是将负数用a来替换，这样就能将正整数划分组了，如果操作次数大于等于分组数，那么结果就是全体正整数之和。</p>
+<h3 id="21-字符串归一化"><a href="#21-字符串归一化" class="headerlink" title="21. 字符串归一化"></a>21. 字符串归一化</h3><p>比较基础，利用字典可以做，也可以用列表做</p>
+<ul>
+<li>解题：</li>
+</ul>
+<ol>
+<li>字典解法：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        result = dict()</span><br><span class="line">        in_string = input().strip()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> in_string:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> result.keys():</span><br><span class="line">                result[i] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                result[i] += <span class="number">1</span></span><br><span class="line">        result = list(sorted(result.items(),key=<span class="keyword">lambda</span> d:d[<span class="number">0</span>]))</span><br><span class="line">        out_string = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> alpha <span class="keyword">in</span> result:</span><br><span class="line">            <span class="keyword">if</span> alpha[<span class="number">1</span>] == <span class="number">1</span>:</span><br><span class="line">                out_string += alpha[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                out_string += alpha[<span class="number">0</span>]</span><br><span class="line">                out_string += str(alpha[<span class="number">1</span>])</span><br><span class="line">        print(out_string)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="22-字符串排序"><a href="#22-字符串排序" class="headerlink" title="22. 字符串排序"></a>22. 字符串排序</h3><p>非常基础的字符串分片和排序问题。</p>
+<h3 id="23-回文字符串"><a href="#23-回文字符串" class="headerlink" title="23. 回文字符串"></a>23. 回文字符串</h3><p>首先回顾最长回文串问题：两种方法</p>
+<ol>
+<li>暴力枚举法：时间复杂度<code>O(n)2</code>,遍历每个字符串组合，如果<code>a[i:j]==a[i:j][::-1]</code>就添加<code>a[i:j]</code>到列表，最终返回列表中长度最长的字符串</li>
+<li>时间复杂度<code>O(n)</code>:每当新增1个字母，最大回文串的长度只能增加1或2，并且最大回文串必须包含这个字母。所以从头到尾扫描字符串，每增加1个新的字符，判断以这个字符结尾，且长度为<code>maxlen+1</code>或<code>maxlen+2</code>的子字符串是否为回文串。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">LongestPalindrome</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> s = s[::<span class="number">-1</span>]: <span class="keyword">return</span> len(s)</span><br><span class="line">    maxlen = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line">        <span class="keyword">if</span> i - maxlen &gt;=<span class="number">1</span> <span class="keyword">and</span> s[i-maxlen<span class="number">-1</span>:i+<span class="number">1</span>] == s[i-maxlen<span class="number">-1</span>:i+<span class="number">1</span>][::<span class="number">-1</span>]:</span><br><span class="line">            maxlen += <span class="number">2</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">elif</span> i-manxlen &gt;=<span class="number">0</span> <span class="keyword">and</span> s[i-maxlen:i+<span class="number">1</span>] == s[i-maxlen:i+<span class="number">1</span>][::<span class="number">-1</span>]:</span><br><span class="line">            maxlen += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>本题是不考虑字符串是否连续，使用动态规划：<code>dp[i][j]</code>表示第i个字符到第j个字符中包含的最大回文子串的最大长度，若<code>a[i]</code>与<code>a[j]</code>有相同的字符，则最大长度为<code>dp[i+1][j-1]+2</code>,否则为以下最大值<code>max(dp[i+1][j],dp[i][j-1])</code></p>
+<h3 id="24-latex爱好者"><a href="#24-latex爱好者" class="headerlink" title="24. latex爱好者"></a>24. latex爱好者</h3><p>测试用例有问题</p>
+<h3 id="25-游戏海报"><a href="#25-游戏海报" class="headerlink" title="25. 游戏海报"></a>25. 游戏海报</h3><p>看着很复杂，其实就是找规律的问题</p>
+<h3 id="26-合并数组"><a href="#26-合并数组" class="headerlink" title="26. 合并数组"></a>26. 合并数组</h3><p>需要考虑第二行数据为空的情况，否则通过率为80%</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    array1 = list(map(int, list(input().strip().split(<span class="string">','</span>))))</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    array2 = []</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    array2 = list(map(int, list(input().strip().split(<span class="string">','</span>))))</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    array2 = []</span><br></pre></td></tr></table></figure>
+<h3 id="27-字符串包含"><a href="#27-字符串包含" class="headerlink" title="27. 字符串包含"></a>27. 字符串包含</h3><p>python做比较容易，正常做法可以以较短字符串长度来分割较长的字符串，判断是否有相同的即可，</p>
+<h3 id="28-最少数量货物装箱问题"><a href="#28-最少数量货物装箱问题" class="headerlink" title="28. 最少数量货物装箱问题"></a>28. 最少数量货物装箱问题</h3><p>这道题本来想法是优先对7取余，再对5最后对3，但是会出现一个情况及时当输入为6时，会显示无法装满。因此需要改变思路，只需要对7取余，对余数进行讨论。当余数为1，3，5时，可以装满，数量为<code>count+1</code>,当余数为2，4，6时，可以装满，数量为<code>count+2</code>。</p>
+<ul>
+<li>解题：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        n = int(input().strip())</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> n <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>]:</span><br><span class="line">            print(<span class="string">"-1"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            count += n//<span class="number">7</span></span><br><span class="line">            n = n%<span class="number">7</span></span><br><span class="line">            <span class="keyword">if</span> n <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>]:</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> n <span class="keyword">in</span> [<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>]:</span><br><span class="line">                count += <span class="number">2</span></span><br><span class="line">            print(count)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="29-回文子串的个数"><a href="#29-回文子串的个数" class="headerlink" title="29. 回文子串的个数"></a>29. 回文子串的个数</h3><p>一看到回文字符串，立马要想到最常用的解题思路：</p>
+<ol>
+<li>动态规划</li>
+<li>中心扩散法</li>
+<li>马拉车算法</li>
+</ol>
+<p>leetcode中出现回文字符串的三个题：</p>
+<ol>
+<li>回文子串的个数</li>
+<li>最长回文子串</li>
+<li>最长不连续的回文子串</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 暴力枚举法</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        inp = input().strip()</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(inp)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>, len(inp)+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> inp[i:j] == inp[i:j][::<span class="number">-1</span>]:</span><br><span class="line">                    count += <span class="number">1</span></span><br><span class="line">        print(count)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>回文子串的个数：</li>
+</ul>
+<ol>
+<li>中心扩散法：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">centerspread</span><span class="params">(s, left,right,ans)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> left&gt;=<span class="number">0</span> <span class="keyword">and</span> right&lt;len(s) <span class="keyword">and</span> s[right] == s[left]:</span><br><span class="line">        left -= <span class="number">1</span></span><br><span class="line">        right += <span class="number">1</span></span><br><span class="line">        ans += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s = input().strip()</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line">            count += centerspread(s,i,i,<span class="number">0</span>)</span><br><span class="line">            count += centerspread(s,i,i+<span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">        print(count)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>动态规划</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="30-字符串压缩"><a href="#30-字符串压缩" class="headerlink" title="30. 字符串压缩"></a>30. 字符串压缩</h3><p>年轻了</p>
+<ul>
+<li>解题</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">a = input()</span><br><span class="line">l = len(a)</span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(i&lt;l):</span><br><span class="line">    sum = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span>(i&lt;l<span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">if</span>(a[i] == a[i+<span class="number">1</span>]):</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            sum += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    print(sum, end=<span class="string">''</span>)</span><br><span class="line">    print(a[i], end=<span class="string">''</span>)</span><br><span class="line">    i += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="31-解析加减法运算"><a href="#31-解析加减法运算" class="headerlink" title="31. 解析加减法运算"></a>31. 解析加减法运算</h3><h3 id="32-求连续子数组的最大和"><a href="#32-求连续子数组的最大和" class="headerlink" title="32. 求连续子数组的最大和"></a>32. 求连续子数组的最大和</h3><p>注意审题，题比较基础</p>
+<h3 id="33-字符串长度最大长度乘积"><a href="#33-字符串长度最大长度乘积" class="headerlink" title="33. 字符串长度最大长度乘积"></a>33. 字符串长度最大长度乘积</h3><h3 id="34-今年的第几天"><a href="#34-今年的第几天" class="headerlink" title="34. 今年的第几天"></a>34. 今年的第几天</h3><p>注意闰年的判定方式：能被400整除，或者能被4整除但不能被100整除。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if y%400==0 or (y%100 and y%4==0)</span><br></pre></td></tr></table></figure>
+<h3 id="35-数字序列第n位的值"><a href="#35-数字序列第n位的值" class="headerlink" title="35. 数字序列第n位的值"></a>35. 数字序列第n位的值</h3><h3 id="36-a-b"><a href="#36-a-b" class="headerlink" title="36.* a/b"></a>36.* a/b</h3><p>如何确定小数循环的位数</p>
+<h3 id="37-最小代价爬楼梯"><a href="#37-最小代价爬楼梯" class="headerlink" title="37. 最小代价爬楼梯"></a>37. 最小代价爬楼梯</h3><p>题目表达的比较不清楚，但是一看就是动态规划的问题</p>
+<h3 id="38-鸡鸭分类问题"><a href="#38-鸡鸭分类问题" class="headerlink" title="38. 鸡鸭分类问题"></a>38. 鸡鸭分类问题</h3><p>思路不明确</p>
+<h3 id="39-比特币最佳买卖时间"><a href="#39-比特币最佳买卖时间" class="headerlink" title="39. 比特币最佳买卖时间"></a>39. 比特币最佳买卖时间</h3><p>比较基础，就是遍历数组，找到后者减去前者差值最大的数就可以。</p>
+<h3 id="40-爱吃喵粮的小招喵"><a href="#40-爱吃喵粮的小招喵" class="headerlink" title="40. 爱吃喵粮的小招喵"></a>40. 爱吃喵粮的小招喵</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/20/jianzhi-offer/" rel="next" title="jianzhi_offer">
+                <i class="fa fa-chevron-left"></i> jianzhi_offer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/10/pre-interview/" rel="prev" title="pre_interview">
+                pre_interview <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/briskkk.jpg" alt="Briskk">
+            
+              <p class="site-author-name" itemprop="name">Briskk</p>
+              <p class="site-description motion-element" itemprop="description">Every man dies, not everyman really lives.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/briskkk" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:simonhua1204@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/1911414777" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-牛牛找工作"><span class="nav-number">1.</span> <span class="nav-text">1. 牛牛找工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-被3整除"><span class="nav-number">2.</span> <span class="nav-text">2. 被3整除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安置路灯"><span class="nav-number">3.</span> <span class="nav-text">3. 安置路灯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-迷路的牛牛"><span class="nav-number">4.</span> <span class="nav-text">4. 迷路的牛牛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-数对"><span class="nav-number">5.</span> <span class="nav-text">5. 数对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-矩形重叠"><span class="nav-number">6.</span> <span class="nav-text">6.* 矩形重叠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-牛牛的闹钟"><span class="nav-number">7.</span> <span class="nav-text">7. 牛牛的闹钟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-牛牛的背包问题"><span class="nav-number">8.</span> <span class="nav-text">8.* 牛牛的背包问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-俄罗斯方块"><span class="nav-number">9.</span> <span class="nav-text">9. 俄罗斯方块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-瞌睡"><span class="nav-number">10.</span> <span class="nav-text">10. 瞌睡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-丰收"><span class="nav-number">11.</span> <span class="nav-text">11. 丰收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-整理房间"><span class="nav-number">12.</span> <span class="nav-text">12. 整理房间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-表达式求值"><span class="nav-number">13.</span> <span class="nav-text">13. 表达式求值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-塔"><span class="nav-number">14.</span> <span class="nav-text">14. 塔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-小易的字典"><span class="nav-number">15.</span> <span class="nav-text">15. 小易的字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-获得最多的奖金"><span class="nav-number">16.</span> <span class="nav-text">16. 获得最多的奖金</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-将满二叉树转换为求和树"><span class="nav-number">17.</span> <span class="nav-text">17.* 将满二叉树转换为求和树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-搭积木"><span class="nav-number">18.</span> <span class="nav-text">18. 搭积木</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-魔法深渊"><span class="nav-number">19.</span> <span class="nav-text">19. 魔法深渊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-善变的同伴"><span class="nav-number">20.</span> <span class="nav-text">20.*  善变的同伴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-字符串归一化"><span class="nav-number">21.</span> <span class="nav-text">21. 字符串归一化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-字符串排序"><span class="nav-number">22.</span> <span class="nav-text">22. 字符串排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-回文字符串"><span class="nav-number">23.</span> <span class="nav-text">23. 回文字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-latex爱好者"><span class="nav-number">24.</span> <span class="nav-text">24. latex爱好者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-游戏海报"><span class="nav-number">25.</span> <span class="nav-text">25. 游戏海报</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#26-合并数组"><span class="nav-number">26.</span> <span class="nav-text">26. 合并数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#27-字符串包含"><span class="nav-number">27.</span> <span class="nav-text">27. 字符串包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#28-最少数量货物装箱问题"><span class="nav-number">28.</span> <span class="nav-text">28. 最少数量货物装箱问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#29-回文子串的个数"><span class="nav-number">29.</span> <span class="nav-text">29. 回文子串的个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#30-字符串压缩"><span class="nav-number">30.</span> <span class="nav-text">30. 字符串压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#31-解析加减法运算"><span class="nav-number">31.</span> <span class="nav-text">31. 解析加减法运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-求连续子数组的最大和"><span class="nav-number">32.</span> <span class="nav-text">32. 求连续子数组的最大和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-字符串长度最大长度乘积"><span class="nav-number">33.</span> <span class="nav-text">33. 字符串长度最大长度乘积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-今年的第几天"><span class="nav-number">34.</span> <span class="nav-text">34. 今年的第几天</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35-数字序列第n位的值"><span class="nav-number">35.</span> <span class="nav-text">35. 数字序列第n位的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-a-b"><span class="nav-number">36.</span> <span class="nav-text">36.* a/b</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-最小代价爬楼梯"><span class="nav-number">37.</span> <span class="nav-text">37. 最小代价爬楼梯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#38-鸡鸭分类问题"><span class="nav-number">38.</span> <span class="nav-text">38. 鸡鸭分类问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#39-比特币最佳买卖时间"><span class="nav-number">39.</span> <span class="nav-text">39. 比特币最佳买卖时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#40-爱吃喵粮的小招喵"><span class="nav-number">40.</span> <span class="nav-text">40. 爱吃喵粮的小招喵</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Briskk</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
