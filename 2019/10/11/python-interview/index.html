@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python1. 什么是pythonPython是一种解释型语言，动态语言，python中一切都是对象 2.set的用途去重，计算交并差集 3. 什么是闭包必报就是根据不同的配置信息得到不同的结果，装饰器就是一种闭包，闭包有效的减少了函数所需定义的参数数目。 函数和对象的根本目的是以某种逻辑方式组织代码，并提高代码的可重复使用性。闭包也是一种组织代码的结构，它同样提高了代码的可重复使用性。 4.C">
+<meta name="keywords" content="面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python_interview">
+<meta property="og:url" content="http://yoursite.com/2019/10/11/python-interview/index.html">
+<meta property="og:site_name" content="华彦裴的博客">
+<meta property="og:description" content="Python1. 什么是pythonPython是一种解释型语言，动态语言，python中一切都是对象 2.set的用途去重，计算交并差集 3. 什么是闭包必报就是根据不同的配置信息得到不同的结果，装饰器就是一种闭包，闭包有效的减少了函数所需定义的参数数目。 函数和对象的根本目的是以某种逻辑方式组织代码，并提高代码的可重复使用性。闭包也是一种组织代码的结构，它同样提高了代码的可重复使用性。 4.C">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-12T10:10:32.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python_interview">
+<meta name="twitter:description" content="Python1. 什么是pythonPython是一种解释型语言，动态语言，python中一切都是对象 2.set的用途去重，计算交并差集 3. 什么是闭包必报就是根据不同的配置信息得到不同的结果，装饰器就是一种闭包，闭包有效的减少了函数所需定义的参数数目。 函数和对象的根本目的是以某种逻辑方式组织代码，并提高代码的可重复使用性。闭包也是一种组织代码的结构，它同样提高了代码的可重复使用性。 4.C">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/11/python-interview/">
+
+
+
+
+
+  <title>python_interview | 华彦裴的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">华彦裴的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/11/python-interview/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Briskk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/briskkk.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="华彦裴的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python_interview</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-11T09:18:41+08:00">
+                2019-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+          
+          
+ 	    <span class="post-meta-divider">|</span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="1-什么是python"><a href="#1-什么是python" class="headerlink" title="1. 什么是python"></a>1. 什么是python</h3><p>Python是一种解释型语言，动态语言，python中一切都是对象</p>
+<h3 id="2-set的用途"><a href="#2-set的用途" class="headerlink" title="2.set的用途"></a>2.set的用途</h3><p>去重，计算交并差集</p>
+<h3 id="3-什么是闭包"><a href="#3-什么是闭包" class="headerlink" title="3. 什么是闭包"></a>3. 什么是闭包</h3><p>必报就是根据不同的配置信息得到不同的结果，装饰器就是一种闭包，<strong>闭包有效的减少了函数所需定义的参数数目</strong>。</p>
+<p>函数和对象的根本目的是以某种逻辑方式组织代码，并提高代码的可重复使用性。闭包也是一种组织代码的结构，它同样提高了代码的可重复使用性。</p>
+<h3 id="4-C-C-JAVA-Python之间的区别"><a href="#4-C-C-JAVA-Python之间的区别" class="headerlink" title="4.C++/C/JAVA/Python之间的区别"></a>4.C++/C/JAVA/Python之间的区别</h3><ul>
+<li>python：快速开发应用程序</li>
+<li>java：健壮的大型软件</li>
+<li>C++：需求效率的软件</li>
+<li>C：操作系统及驱动</li>
+</ul>
+<h3 id="5-python内存管理和垃圾回收机制"><a href="#5-python内存管理和垃圾回收机制" class="headerlink" title="5. python内存管理和垃圾回收机制"></a>5. python内存管理和垃圾回收机制</h3><p>主要使用引用计数（reference counting）来跟踪和回收垃圾。在引用计数的基础上，通过标记-清楚（mard and sweep）解决容器对象可能产生的循环引用问题，通过“分代回收”（generation）以空间换时间的方法提高垃圾回收效率。</p>
+<ol>
+<li>内存管理&amp;引用计数</li>
+</ol>
+<p>python创建新对象都是在内存上开辟一块，<strong>每个对象只存有一份数据，赋值和复制都是创建了新的引用，使用的是对象和引用分离策略</strong>。在Python中，每个对象都存有指向该对象的引用总数，即引用计数，如果引用计数为0，那这个对象就会被python垃圾回收机制回收。</p>
+<ol start="2">
+<li>标记-清除机制</li>
+</ol>
+<p>基本思路是按需分配，等到没有空闲内存的时候从寄存器和程序栈上的引用出发，遍历以对象为节点，以引用为边构成的图，把所有可以访问到的对象打上标记，然后清扫一遍内存空间，把所有没标记的对象释放。同时为了保证效率，只会在垃圾达到一定阈值时，垃圾回收才会启动。</p>
+<h3 id="6-动态语言和静态语言的区别"><a href="#6-动态语言和静态语言的区别" class="headerlink" title="6. 动态语言和静态语言的区别"></a>6. 动态语言和静态语言的区别</h3><p>动态语言（弱类型语言）是一类在运行时可以改变其结构的语言（比如一个类中只定义了一个对象的名字和性别，可以动态为其加入年龄属性）</p>
+<p>静态语言（强类型语言）是在编译时变量的数据类型即可确定的语言，多数静态类型语言要求在使用变量之前必须声明数据类型</p>
+<p>静态优势：</p>
+<ul>
+<li>类型的强制声明，使得IDE有很强的代码感知能力，故在实现复杂的业务逻辑，大型系统，错误容易被发现，调试难度低。</li>
+<li>由于比较封闭，使得第三方开发包对代码的侵害可以降到最低</li>
+</ul>
+<p>动态优势：</p>
+<ul>
+<li>思维不受缚，可任意发挥，更专注于产品</li>
+<li>集中思考业务逻辑实现</li>
+</ul>
+<h3 id="7-字典推导式"><a href="#7-字典推导式" class="headerlink" title="7. 字典推导式"></a>7. 字典推导式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;key:value <span class="keyword">for</span> (key,value) <span class="keyword">in</span> iterable&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8-Python装饰器内部实现原理"><a href="#8-Python装饰器内部实现原理" class="headerlink" title="8. Python装饰器内部实现原理"></a>8. Python装饰器内部实现原理</h3><p>装饰器本质上是一个Python函数，是闭包对一种实现，作用是在其他函数在不需要做任何代码变动的前提下增加额外功能。</p>
+<p>使用装饰器的时候，解析器把被装饰得函数作为参数传递给装饰器，然后再返回一个函数对象，装饰器内部实现需要额外增加的功能和被装饰函数的功能，虽然被装饰函数的调用方法没有改变, 但实际上已经不是原来函数, 而变成了装饰器返回的函数对象。</p>
+<p>适用于有切面需求的场景：插入日志，性能测试，事务处理，缓存、权限校验等场景。<strong>可以抽离出大量函数中与函数功能本身无关的雷同代码并继续重用。装饰器的作用就是为已经存在的对象添加额外的功能。</strong></p>
+<p>面向切面编程AOP：运行时动态将代码切入到类的指定方法、指定位置上的编程思想就是面向切面的编程。</p>
+<h3 id="9-Python作用域以及Python搜索变量的顺序"><a href="#9-Python作用域以及Python搜索变量的顺序" class="headerlink" title="9. Python作用域以及Python搜索变量的顺序"></a>9. Python作用域以及Python搜索变量的顺序</h3><p>python作用域就是变量的命名空间，代码中变量被赋值的位置就决定了哪些范围的对象可以访问这个变量。</p>
+<p>只有模块、类以及函数才会引入新的作用域。</p>
+<p>Python的变量名解析机制（LEGB法则）：本地作用域（local）、当前作用域被嵌入的本地作用域（enclosing locals）、全局/模块作用域（global），内置作用域（built-in）</p>
+<h3 id="10-GIL线程全局锁，死锁"><a href="#10-GIL线程全局锁，死锁" class="headerlink" title="10. GIL线程全局锁，死锁"></a>10. GIL线程全局锁，死锁</h3><h3 id="11-调度算法"><a href="#11-调度算法" class="headerlink" title="11. 调度算法"></a>11. 调度算法</h3><h3 id="12-什么是lambda函数（匿名函数）"><a href="#12-什么是lambda函数（匿名函数）" class="headerlink" title="12. 什么是lambda函数（匿名函数）"></a>12. 什么是lambda函数（匿名函数）</h3><p>通常用在函数体比较简单的函数，函数没用名字，不用担心函数名冲突，只有简单的情况下可以使用匿名函数</p>
+<h3 id="13-函数式编程"><a href="#13-函数式编程" class="headerlink" title="13. 函数式编程"></a>13. 函数式编程</h3><p>函数式编程中，函数是基本单位，变量只是一个名称，而不是一个存储单元。</p>
+<p>除了匿名函数外，python还使用<code>filter(),map(),reduce(),apply()</code>函数来支持函数式编程。</p>
+<h3 id="14-copy-和deepcopy"><a href="#14-copy-和deepcopy" class="headerlink" title="14.copy()和deepcopy()"></a>14.<code>copy()</code>和<code>deepcopy()</code></h3><p>深复制：将被复制对象再复制一遍作为独立的新个体单独存在，所以改变原有被复制对象不会对已经复制出来的新对象产生影响</p>
+<p>浅复制：并不会产生一个独立的对象单独存在，只是将原有的数据块打上一个新标签，当其中一个标签被改变的时候，数据块就会发生变化，另一个标签也会随之改变。</p>
+<h3 id="15-如何捕获异常，常见的异常机制有哪些？"><a href="#15-如何捕获异常，常见的异常机制有哪些？" class="headerlink" title="15.如何捕获异常，常见的异常机制有哪些？"></a>15.如何捕获异常，常见的异常机制有哪些？</h3><ol>
+<li><code>try... except...finally</code>语句：当try语句执行时发生异常，回到try语句层，寻找后面是否有except语句。找到except语句后，会调用这个自定义的异常处理器，except将异常处理完毕后，程序继续往下执行，finally语句表示无论异常发生与否，finally中的语句都要执行。</li>
+<li><code>assert</code>语句：判断assert后面紧跟的语句时True还是False。如果是True则继续执行，如果是False则终端程序调用默认的异常处理器，同时输出assert语句逗号后面的提示信息</li>
+<li><code>with</code>语句：如果with语句或语句块中发生异常，会调用默认的异常处理器处理，但文件还是会正常关闭</li>
+</ol>
+<h3 id="16-python函数参数传递"><a href="#16-python函数参数传递" class="headerlink" title="16.python函数参数传递"></a>16.python函数参数传递</h3><p>所有的变量都可以理解是内存中一个对象的引用。</p>
+<p>类型是属于对象的，而不是变量</p>
+<p>对象有两种：可更改和不可更改。在Python中，strings、tuples、numbers属于不可更改的对象。而list、dict、set属于可以修改的对象</p>
+<p>当一个引用传递给函数时，函数自动复制一份引用，这时函数里的引用和外面的引用就没有关系了。</p>
+<h3 id="17-类变量和实例变量"><a href="#17-类变量和实例变量" class="headerlink" title="17.类变量和实例变量"></a>17.类变量和实例变量</h3><p>类变量：是可在所有实例之间共享的值（它们不是单独分配给每个实例的）</p>
+<p>实例变量：实例话之后，每个实例单独拥有的变量。</p>
+<h3 id="18-Python自省"><a href="#18-Python自省" class="headerlink" title="18.Python自省"></a>18.Python自省</h3><p>自省就是面向对象的语言所写的程序在运行时，<strong>所能知道对象的类型</strong>。简单一句就是运行时能够获得对象的类型。（比如<code>type(),dir(),hasattr(),isinstance()</code></p>
+<h3 id="19-迭代器和生成器"><a href="#19-迭代器和生成器" class="headerlink" title="19.迭代器和生成器"></a>19.迭代器和生成器</h3><p>问： 将列表生成式中[]改成() 之后数据结构是否改变？ 答案：是，从列表变为生成器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>L = [x*x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>L</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g = (x*x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g</span><br><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x0000028F8B774200</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>通过列表生成式，可以直接创建一个列表，但是受到内存限制，列表容量是有限的，可以采用生成器，边循环边计算机制。</p>
+<h3 id="20-args和-kwargs"><a href="#20-args和-kwargs" class="headerlink" title="20.*args和**kwargs"></a>20.*args和**kwargs</h3><p>当不确定你的函数将要传递多少参数是可以使用<code>*args</code>，可以传递任意数量的参数</p>
+<p>使用<code>**kwargs</code>允许使用没有事先定义的参数名。</p>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>基本概念：多态、封装、组合、继承。迭代器和生成器</p>
+<h3 id="1-python面向对象和java面向对象的区别"><a href="#1-python面向对象和java面向对象的区别" class="headerlink" title="1.python面向对象和java面向对象的区别"></a>1.python面向对象和java面向对象的区别</h3><p>python可以面向对象编程，也可以不按照面向对象编程，但是java必须面向对象编程，必须建个类。</p>
+<h3 id="2-python实例方法，类方法，静态方法之间的区别即调用关系"><a href="#2-python实例方法，类方法，静态方法之间的区别即调用关系" class="headerlink" title="2.python实例方法，类方法，静态方法之间的区别即调用关系"></a>2.python实例方法，类方法，静态方法之间的区别即调用关系</h3><p>在类里面的函数就是方法，类方法需要<code>@classmethod</code>修饰并且有个隐藏参数<code>cls</code>，实例方法必须有个参数<code>self</code>，静态方法必须有<code>@staticmethod</code>修饰；</p>
+<p>类和实例都可以访问静态方法，实例可以访问实例方法也可以访问类方法，类可以访问类方也可以访问实例方法，访问实例方法必须要带参数self，可以理解为类其实也是一个实例，类访问实例方法不带参数会报错的，类本身可以访问函数，实例却不行。</p>
+<h3 id="3-python新式类和旧式类的区别"><a href="#3-python新式类和旧式类的区别" class="headerlink" title="3.python新式类和旧式类的区别"></a>3.python新式类和旧式类的区别</h3><p>主要区别在于多继承中，新式类采用广类优先搜索，而旧式类采用深度优先搜索。</p>
+<h3 id="4-new-和-init-的区别"><a href="#4-new-和-init-的区别" class="headerlink" title="4.__new__和__init__的区别"></a>4.<code>__new__</code>和<code>__init__</code>的区别</h3><p>创建一个新实例时调用<code>__new__</code>,初始化一个实例时用<code>__init__</code>,这是它们最本质的区别。<br><code>__new__</code>是一个静态方法,而<code>__init__</code>是一个实例方法。<br><code>__new__</code>方法会返回一个创建的实例,而<code>__init__</code>什么都不返回。<br>只有在<code>__new__</code>返回一个cls的实例时后面的<code>__init__</code>才能被调用。<br>单例模式的实现可以使用<code>__new__</code>方法</p>
+<h3 id="5-单例模式"><a href="#5-单例模式" class="headerlink" title="5. 单例模式"></a>5. 单例模式</h3><p>单例模式是一种常用的软件设计模式，在它的核心结构中只包含一个被称为单例类的特殊类，通过单例模式可以保证系统中一个类只有一个实例而且该实例易于外界访问，从而方便对实例个数控制并节约系统资源，如果希望在系统中的某个类的对象只能存在一个，单例模式是最好的解决方案。</p>
+<p><code>__new__()</code>在<code>__init__()</code>之前被调用，用于生成实例对象。利用这个方法和类的属性的特点可以实现设计模式的单例模式。</p>
+<ol>
+<li>使用<code>__new__</code>方法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls,*args,**kw)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(cls,<span class="string">'_instance'</span>):</span><br><span class="line">            orig = super(Singleton,cls)</span><br><span class="line">            cls._instance = orig.__new__(cls,*args,**kw)</span><br><span class="line">        <span class="keyword">return</span> cls._instance</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Myclass</span><span class="params">(Singleton)</span>:</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>共享属性</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Borg</span><span class="params">(object)</span>:</span></span><br><span class="line">    _state = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kw)</span>:</span></span><br><span class="line">        ob = super(Borg, cls).__new__(cls, *args, **kw)</span><br><span class="line">        ob.__dict__ = cls._state</span><br><span class="line">        <span class="keyword">return</span> ob</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass2</span><span class="params">(Borg)</span>:</span></span><br><span class="line">    a = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>装饰器版本</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">singleton</span><span class="params">(cls)</span>:</span></span><br><span class="line">    instances = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getinstance</span><span class="params">(*args,**kw)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> cls <span class="keyword">not</span> <span class="keyword">in</span> instances:</span><br><span class="line">            instances[cls] = cls(*args,**kw)</span><br><span class="line">        <span class="keyword">return</span> instacnes[cls]</span><br><span class="line">    <span class="keyword">return</span> getinstance</span><br><span class="line"><span class="meta">@singleton</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Myclass</span></span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>import方法:</li>
+</ol>
+<p>作为python的模块是天然的单例模式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">My_singleton</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">my_singleton = My_singleton()</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> My_singleton <span class="keyword">import</span> my_singleton</span><br><span class="line"></span><br><span class="line">my_singleton.foo()</span><br></pre></td></tr></table></figure>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="1-简述线程、进程、协程的特性"><a href="#1-简述线程、进程、协程的特性" class="headerlink" title="1.简述线程、进程、协程的特性"></a>1.简述线程、进程、协程的特性</h3><p>进程是系统进行资源分配和调度的最小单位，进程是线程的容器，一个进程可以包含多个线程，进程之间数据不能互相访问。</p>
+<p>线程是CPU调度的最小单位，线程是程序执行流的最小单元，每一个进程都至少有一个线程，线程之间数据可以共享</p>
+<p><strong>进程线程都是由操作系统调度，python中的多线程和多进程都是通过切换上下文来实现，都会耗费额外的系统资源</strong></p>
+<p>协程是由程序员调度，由代码切换来控制，系统并不知道协程的存在，各种多并发异步非阻塞模块都是基于协程来实现的</p>
+<p>进程和线程都面临着内核态和用户态的切换问题而耗费许多切换时间，而协程就是用户自己控制切换的时间，不再需要陷入系统的内核态</p>
+<p>Python里最常见的yield就是协程的思想。</p>
+<p><strong>协程是线程和进程的升级版，进程和线程都面临着内核态和用户态的切换问题而耗费许多切换时间，而协程就是用户自己控制切换的时机，不再需要陷入系统的内核态。</strong></p>
+<h3 id="2-线程有几种状态？生命周期是怎样的？"><a href="#2-线程有几种状态？生命周期是怎样的？" class="headerlink" title="2.线程有几种状态？生命周期是怎样的？"></a>2.线程有几种状态？生命周期是怎样的？</h3><p>线程有五种状态：创建、就绪、运行、阻塞、死亡</p>
+<p>调用start方法，线程就会进入就绪状态</p>
+<p>在线程得到cpu时间片时进入运行状态</p>
+<p>线程调用yield方法可以让出cpu时间回到就绪状态</p>
+<p>线程运行时可能由于IO、调用sleep、weit、join方法或者无法获得同步锁等原因进入阻塞状态</p>
+<p>当线程获得到等待的资源或者引起阻塞的条件得到满足时，会从阻塞状态进入就绪状态</p>
+<p>当线程的run方法执行结束时，线程就进入死亡状态</p>
+<h3 id="3-进程间通信的方式有哪些？各有什么优缺点？"><a href="#3-进程间通信的方式有哪些？各有什么优缺点？" class="headerlink" title="3.进程间通信的方式有哪些？各有什么优缺点？"></a>3.进程间通信的方式有哪些？各有什么优缺点？</h3><ol>
+<li>管道：管道是一种半双工的通信方式，数据只能单向流动，而且<strong>只能在具有亲缘关系的进程之间使用</strong>。进程的亲缘关系通常是指父子进程关系。</li>
+<li>有名管道（FIFO）：也是半双工的通信方式，但是允许在没有亲缘关系的进程之间使用，管道是先进先出的通信方式。</li>
+<li>信号量：<strong>信号量是一个计数器，可以用来控制多个进程对共享资源的访问</strong>，它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此主要作为进程间以及同一进程内不同线程之间的同步手段。</li>
+<li>消息队列：<strong>消息队列是有消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</strong></li>
+<li>信号：信号是一种比较复杂的通信方式，用于通知接受进程某个事件已经发生。</li>
+<li>共享内存：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问，<strong>共享内存是最快的IPC方式</strong>，它是针对其他进程间通信方式运行效率低而专门设计的，它往往与其他通信机制如信号量配合使用，来实现进程间的同步和通信。</li>
+<li>套接字（socket）：套接字也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同机器间的进程通信。</li>
+<li>文件</li>
+</ol>
+<h3 id="4-线程池"><a href="#4-线程池" class="headerlink" title="4.线程池"></a>4.线程池</h3><ul>
+<li>线程池原理</li>
+</ul>
+<p>将指定数量的可用子线程放进一个池里，有任务时取出一个线程执行，任务执行完后，并不立即销毁线程，而是放进线程池中，等待接受下一个任务，这样内存和cpu的开销也比较小，并且可以控制线程的数量。</p>
+<ul>
+<li>线程池的实现</li>
+</ul>
+<p>在python中，使用队列Queue，因为python中queue本身时同步的，所以也就是线程安全的，可以让多个线程共享一个queue。</p>
+<p>同时也适用queue来实现任务池，存放待执行的任务。</p>
+<ul>
+<li>线程安全和非线程安全</li>
+</ul>
+<p>线程安全就是多线程访问时，采用了加锁机制，当一个线程访问该类的某个数据时进行保护，其他线程不能进行访问知道该线程读取完，其他线程才可以使用，不会出现数据不一致或者数据污染（Queue，logging)</p>
+<p>非线程保护，不提供数据访问保护，有可能出现多个线程先后更改数据造成所得到的数据是脏数据（list,set,dict)</p>
+<h3 id="5-I-O多路复用"><a href="#5-I-O多路复用" class="headerlink" title="5.I/O多路复用"></a>5.I/O多路复用</h3><h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><h3 id="1-在浏览器键入URL，按下回车之后会经历以下流程"><a href="#1-在浏览器键入URL，按下回车之后会经历以下流程" class="headerlink" title="1.在浏览器键入URL，按下回车之后会经历以下流程"></a>1.在浏览器键入URL，按下回车之后会经历以下流程</h3><ol>
+<li>浏览器向DNS服务器请求解析该URL中的域名所对应的IP地址</li>
+<li>解析出IP地址后，根据该IP地址和默认端口80，和服务器建立TCP连接</li>
+<li>浏览器发出读取文件（URL终于名后面部分对应的文件）的HTTP请求，该请求报文作为TCP三次握手的第三个豹纹的数据发送给服务器。</li>
+<li>服务器对浏览器请求作出响应，并把对应的html文本发送给浏览器</li>
+<li>释放TCP连接</li>
+<li>浏览器将该html文本内容显示</li>
+</ol>
+<h3 id="2-TCP（传输控制协议）和UDP（用户数据报协议）区别"><a href="#2-TCP（传输控制协议）和UDP（用户数据报协议）区别" class="headerlink" title="2.TCP（传输控制协议）和UDP（用户数据报协议）区别"></a>2.TCP（传输控制协议）和UDP（用户数据报协议）区别</h3><ol>
+<li>TCP面性连接的传输，通信前要先建立连接（三次握手）；UDP提供无连接的传输，通信前不需要建立连接</li>
+<li>TCP提供可靠的传输（有序、无差错、不丢失、不重复）；UDP提供不可靠的传输</li>
+<li>TCP面向字节流的传输，因此它能够将信息分割成组并在接收端将其重组；UDP是面向数据报的传输，没有分组开销</li>
+<li>TCP提供拥塞控制和流量控制机制；UDP不提供</li>
+</ol>
+<h3 id="4-什么时候用TCP协议，什么时候用UDP协议"><a href="#4-什么时候用TCP协议，什么时候用UDP协议" class="headerlink" title="4.什么时候用TCP协议，什么时候用UDP协议"></a>4.什么时候用TCP协议，什么时候用UDP协议</h3><ol>
+<li>对数据可靠性的要求高应选择TCP协议。如验证密码字段的传送都是不允许出错。</li>
+<li>对应用的实时性要求高应选择UDP协议。TCP协议在传送过程中使用三次握手、重传缺人等手段保证数据传输的可靠性因此不是额呵对实时性要求较高的应用（如视频监控等）</li>
+<li>网络可靠性。TCP协议的提出主要是解决网络的可靠性问题，通过各种机制来减少错误的发生的概率，因此在网络状况不是很好的情况下选用TCP协议（广域网情况），在网络状况良好的情况下（局域网）选用UDP协议来减少网络负荷。</li>
+</ol>
+<h3 id="5-三次握手以及四次挥手"><a href="#5-三次握手以及四次挥手" class="headerlink" title="5.三次握手以及四次挥手"></a>5.三次握手以及四次挥手</h3><ul>
+<li>三次握手</li>
+</ul>
+<ol>
+<li>客户端通过向服务器端发送一个SYN来创建一个主动打开，作为三次握手的一部分。客户端把这段连接的序号设定为随机数 A。</li>
+<li>服务器端应当为一个合法的SYN回送一个SYN/ACK。ACK 的确认码应为 A+1，SYN/ACK 包本身又有一个随机序号 B。</li>
+<li>最后，客户端再发送一个ACK。当服务端受到这个ACK的时候，就完成了三路握手，并进入了连接创建状态。此时包序号被设定为收到的确认号 A+1，而响应则为 B+1。</li>
+</ol>
+<blockquote>
+<p>第一次握手是客户端连接服务器，向服务器发送请求。第二次握手是服务器接受了客户端的请求后，向客户端发送消息。第三次握手是客户端向服务器发送消息，对第二次握手信息的缺人，之后客户端和服务器就可以开始通信了。</p>
+</blockquote>
+<ul>
+<li>四次挥手</li>
+</ul>
+<ol>
+<li>客户端发送一个数据分段, 其中的 FIN 标记设置为1. 客户端进入 FIN-WAIT 状态. 该状态下客户端只接收数据, 不再发送数据.</li>
+<li>服务器接收到带有 FIN = 1 的数据分段, 发送带有 ACK = 1 的剩余数据分段, 确认收到客户端发来的 FIN 信息.</li>
+<li>服务器等到所有数据传输结束, 向客户端发送一个带有 FIN = 1 的数据分段, 并进入 CLOSE-WAIT 状态, 等待客户端发来带有 ACK = 1 的确认报文.</li>
+<li>客户端收到服务器发来带有 FIN = 1 的报文, 返回 ACK = 1 的报文确认, 为了防止服务器端未收到需要重发, 进入 TIME-WAIT 状态. 服务器接收到报文后关闭连接. 客户端等待 2MSL 后未收到回复, 则认为服务器成功关闭, 客户端关闭连接.</li>
+</ol>
+<blockquote>
+<p>由于TCP连接是全双工的，因此每个方向必须单独进行关闭。当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN意味着这一方向没有数据流动。一个TCP连接在收到一个FIN后仍能发送数据。</p>
+<p>首先关闭的一方将执行主动关闭，另一个执行被动关闭。客户端或者服务器均可主动发起挥手动作。</p>
+<p>断开连接的一端发送close请求是第一次挥手，另外一端接收到断开连接的球球之后需要对close进行确认，发送一个信息，这是第二次挥手。</p>
+<p>发送了确认消息之后还要想对端发送close消息，需要关闭对对端的连接，这是第三次挥手。</p>
+<p>而在最初发送断开连接的一端接收到消息之后，进入到一个很重要的time_wait状态，最后一次挥手是主动断开连接的一端接受消息之后，对消息的确认。</p>
+</blockquote>
+<h3 id="6-RPC"><a href="#6-RPC" class="headerlink" title="6.RPC"></a>6.RPC</h3><p>RPC（Remote Procedure Call Protocol)–远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。</p>
+<p>RPC协议假定某些传输协议的存在，如TCP/UDP，为通信程序之间携带信息苏剧，在OSI七层模型中，RPC跨越了传输层和应用层。</p>
+<p>RPC使得开发包括网络分布式多程序在内的应用程序更加容易。</p>
+<p>RESTful以资源为导向，任何操作都是对资源的增删改查，是RPC的进化</p>
+<h3 id="7-WSGI"><a href="#7-WSGI" class="headerlink" title="7.WSGI"></a>7.WSGI</h3><p>WSGI,Web Server Gateway Interface,是Python应用程序或框架和Web服务器之间的一种接口，WSGI的其中一个目的就是让用户可以用统一的语言（Python）编写钱后端。</p>
+<h3 id="8-ARP协议"><a href="#8-ARP协议" class="headerlink" title="8.ARP协议"></a>8.ARP协议</h3><p>地址解析协议，其基本功能为透过目标设备的IP地址，查询目标的MAC地址</p>
+<h2 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h2><h3 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multipliers</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">lambda</span> x:i*x <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>)]</span><br><span class="line">print([m(<span class="number">2</span>) <span class="keyword">for</span> m <span class="keyword">in</span> multipliers()])</span><br></pre></td></tr></table></figure>
+<p>运行结果：<code>[6,6,6,6]</code></p>
+<p>涉及到的知识点：</p>
+<ol>
+<li>列表推导式</li>
+<li>匿名函数：<code>lambda 参数：返回值</code>，lambda后面的参数就是函数的星灿，冒号后面的表达式就是返回值</li>
+<li>闭包函数：当前函数引用到上一层函数的局部命名空间的变量时就会出发闭包规则。触发了闭包的函数叫做闭包函数，但是，只有当调用闭包函数的时候才会去引用外层函数的变量，因为在调用闭包函数之前，闭包内部的命名空间的还不存在。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multipilers</span><span class="params">()</span>:</span></span><br><span class="line">    squares = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        res = <span class="keyword">lambda</span> x:i*x</span><br><span class="line">        squares.append(res)</span><br><span class="line">    <span class="keyword">return</span> squares</span><br><span class="line">print([m(<span class="number">2</span>) <span class="keyword">for</span> m <span class="keyword">in</span> multipliers()])</span><br></pre></td></tr></table></figure>
+<p><code>multipliers()</code>的返回值是一个列表，这个列表的元素为四个闭包函数名指向的内存地址，匿名函数需要使用外部变量i来出发闭包规则，所以匿名函数（闭包函数）目前还没有被真正调用，列表推导式仅仅是把四个匿名函数指向的内存地址保存在来一个列表里，没有真正调用，所以匿名函数内部的代码并没有执行，也就不存在引用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print([m(<span class="number">2</span>) <span class="keyword">for</span> m <span class="keyword">in</span> multipliers()])</span><br></pre></td></tr></table></figure>
+<p>这条语句到底是在干啥，干的事情只有一个，那就是遍历了函数<code>multipliers()</code>返回的列表，在遍历列表的同时将每个匿名函数赋值给了m。</p>
+<p>拆分出来就是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="keyword">lambda</span> x:i*x</span><br><span class="line">m = <span class="keyword">lambda</span> x:i*x</span><br><span class="line">m = <span class="keyword">lambda</span> x:i*x</span><br><span class="line">m = <span class="keyword">lambda</span> x:i*x</span><br></pre></td></tr></table></figure>
+<p>并且每次都执行了一次m(2),也就是每次都调用了胰腺癌</p>
+<h3 id="1-台阶问题-斐波那契问题"><a href="#1-台阶问题-斐波那契问题" class="headerlink" title="1.台阶问题/斐波那契问题"></a>1.台阶问题/斐波那契问题</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fib = <span class="keyword">lambda</span> n: n <span class="keyword">if</span> n &lt;= <span class="number">2</span> <span class="keyword">else</span> fib(n<span class="number">-1</span>) + fib(n<span class="number">-2</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/10/pre-interview/" rel="next" title="pre_interview">
+                <i class="fa fa-chevron-left"></i> pre_interview
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/09/be-with-you/" rel="prev" title="be with you">
+                be with you <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/briskkk.jpg" alt="Briskk">
+            
+              <p class="site-author-name" itemprop="name">Briskk</p>
+              <p class="site-description motion-element" itemprop="description">Every man dies, not everyman really lives.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/briskkk" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:simonhua1204@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/1911414777" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python"><span class="nav-number">1.</span> <span class="nav-text">Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是python"><span class="nav-number">1.1.</span> <span class="nav-text">1. 什么是python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-set的用途"><span class="nav-number">1.2.</span> <span class="nav-text">2.set的用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-什么是闭包"><span class="nav-number">1.3.</span> <span class="nav-text">3. 什么是闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-C-C-JAVA-Python之间的区别"><span class="nav-number">1.4.</span> <span class="nav-text">4.C++/C/JAVA/Python之间的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-python内存管理和垃圾回收机制"><span class="nav-number">1.5.</span> <span class="nav-text">5. python内存管理和垃圾回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-动态语言和静态语言的区别"><span class="nav-number">1.6.</span> <span class="nav-text">6. 动态语言和静态语言的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-字典推导式"><span class="nav-number">1.7.</span> <span class="nav-text">7. 字典推导式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Python装饰器内部实现原理"><span class="nav-number">1.8.</span> <span class="nav-text">8. Python装饰器内部实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Python作用域以及Python搜索变量的顺序"><span class="nav-number">1.9.</span> <span class="nav-text">9. Python作用域以及Python搜索变量的顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-GIL线程全局锁，死锁"><span class="nav-number">1.10.</span> <span class="nav-text">10. GIL线程全局锁，死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-调度算法"><span class="nav-number">1.11.</span> <span class="nav-text">11. 调度算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-什么是lambda函数（匿名函数）"><span class="nav-number">1.12.</span> <span class="nav-text">12. 什么是lambda函数（匿名函数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-函数式编程"><span class="nav-number">1.13.</span> <span class="nav-text">13. 函数式编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-copy-和deepcopy"><span class="nav-number">1.14.</span> <span class="nav-text">14.copy()和deepcopy()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-如何捕获异常，常见的异常机制有哪些？"><span class="nav-number">1.15.</span> <span class="nav-text">15.如何捕获异常，常见的异常机制有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-python函数参数传递"><span class="nav-number">1.16.</span> <span class="nav-text">16.python函数参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-类变量和实例变量"><span class="nav-number">1.17.</span> <span class="nav-text">17.类变量和实例变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-Python自省"><span class="nav-number">1.18.</span> <span class="nav-text">18.Python自省</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-迭代器和生成器"><span class="nav-number">1.19.</span> <span class="nav-text">19.迭代器和生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-args和-kwargs"><span class="nav-number">1.20.</span> <span class="nav-text">20.*args和**kwargs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">2.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-python面向对象和java面向对象的区别"><span class="nav-number">2.1.</span> <span class="nav-text">1.python面向对象和java面向对象的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-python实例方法，类方法，静态方法之间的区别即调用关系"><span class="nav-number">2.2.</span> <span class="nav-text">2.python实例方法，类方法，静态方法之间的区别即调用关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-python新式类和旧式类的区别"><span class="nav-number">2.3.</span> <span class="nav-text">3.python新式类和旧式类的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-new-和-init-的区别"><span class="nav-number">2.4.</span> <span class="nav-text">4.__new__和__init__的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-单例模式"><span class="nav-number">2.5.</span> <span class="nav-text">5. 单例模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统"><span class="nav-number">3.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-简述线程、进程、协程的特性"><span class="nav-number">3.1.</span> <span class="nav-text">1.简述线程、进程、协程的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-线程有几种状态？生命周期是怎样的？"><span class="nav-number">3.2.</span> <span class="nav-text">2.线程有几种状态？生命周期是怎样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-进程间通信的方式有哪些？各有什么优缺点？"><span class="nav-number">3.3.</span> <span class="nav-text">3.进程间通信的方式有哪些？各有什么优缺点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-线程池"><span class="nav-number">3.4.</span> <span class="nav-text">4.线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-I-O多路复用"><span class="nav-number">3.5.</span> <span class="nav-text">5.I/O多路复用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络编程"><span class="nav-number">4.</span> <span class="nav-text">网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-在浏览器键入URL，按下回车之后会经历以下流程"><span class="nav-number">4.1.</span> <span class="nav-text">1.在浏览器键入URL，按下回车之后会经历以下流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-TCP（传输控制协议）和UDP（用户数据报协议）区别"><span class="nav-number">4.2.</span> <span class="nav-text">2.TCP（传输控制协议）和UDP（用户数据报协议）区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-什么时候用TCP协议，什么时候用UDP协议"><span class="nav-number">4.3.</span> <span class="nav-text">4.什么时候用TCP协议，什么时候用UDP协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-三次握手以及四次挥手"><span class="nav-number">4.4.</span> <span class="nav-text">5.三次握手以及四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-RPC"><span class="nav-number">4.5.</span> <span class="nav-text">6.RPC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-WSGI"><span class="nav-number">4.6.</span> <span class="nav-text">7.WSGI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-ARP协议"><span class="nav-number">4.7.</span> <span class="nav-text">8.ARP协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程题"><span class="nav-number">5.</span> <span class="nav-text">编程题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1"><span class="nav-number">5.1.</span> <span class="nav-text">1.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-台阶问题-斐波那契问题"><span class="nav-number">5.2.</span> <span class="nav-text">1.台阶问题/斐波那契问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Briskk</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
